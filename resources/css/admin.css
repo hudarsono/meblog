@@ -1,0 +1,93 @@
+body{
+	background-color:#D5DBE0;
+	text-shadow: 0px 1px 1px #fff;
+}
+
+#admin-menu {
+	position:absolute;
+	margin-top:50px;
+}
+
+#admin-menu ul{
+	width:100px;
+	float:left;
+	margin:0px;
+	padding:2px;
+	list-style:none;
+}
+
+
+#admin-menu ul .top a{
+	text-decoration: none;
+	padding:5px;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+}
+
+#admin-menu ul .top a:hover{
+	background: rgba(255,255,255,0.5);
+	box-shadow: rgba(255,255,255,0.5) 1px 1px 3px;
+}
+
+#admin-menu ul .item{
+	display:none;
+	width:100px;
+}
+
+#admin-menu ul:hover .item{
+	display:block;
+	background: rgba(255,255,255,0.5);
+	padding: 2px;
+	margin: 2px;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+}
+
+#admin-menu ul:hover .item a{
+	padding: 5px;
+	text-decoration: none;
+}
+
+#admin-menu ul:hover .item  a:hover{
+	text-decoration: underline;
+}
+
+table{
+	width: 90%;
+	border-collapse:collapse;
+	float:left;
+	margin-left:30px;
+}
+
+td{
+	color:#000;
+	border-bottom:1px solid #e5eff8;
+	border-right:1px solid #e5eff8;
+	border-left:1px solid #e5eff8;
+	padding:.3em 1em;
+	text-align:center;
+}
+
+tr.odd td {
+	background:#f7fbff;
+}
+
+thead th{
+	background:#f4f9fe;
+	text-align:center;
+	font:bold 1.2em/2em "Century Gothic","Trebuchet MS",Arial,Helvetica,sans-serif;
+	color:#3C32FA;
+}
+
+thead tr th.first{
+	-moz-border-radius-topleft:6px;
+	-webkit-border-top-left-radius:6px;
+	border-top-left-radius:6px;
+}
+thead tr th.last{
+	-moz-border-radius-topright:8px;
+	-webkit-border-top-right-radius:6px;
+	border-top-right-radius:6px;
+}
