@@ -19,13 +19,14 @@ body{
 
 #admin-menu ul .top a{
 	text-decoration: none;
-	padding:5px;
+	text-align:left;
+	padding:8px;
 	-moz-border-radius:6px;
 	-webkit-border-radius:6px;
 	border-radius:6px;
 }
 
-#admin-menu ul .top a:hover{
+#admin-menu ul .top a:hover, #admin-menu ul .top a:focus{
 	background: rgba(255,255,255,0.5);
 	box-shadow: rgba(255,255,255,0.5) 1px 1px 3px;
 }
@@ -37,16 +38,15 @@ body{
 
 #admin-menu ul:hover .item{
 	display:block;
+	padding:5px;
 	background: rgba(255,255,255,0.5);
-	padding: 2px;
-	margin: 2px;
 	-moz-border-radius:6px;
 	-webkit-border-radius:6px;
 	border-radius:6px;
 }
 
 #admin-menu ul:hover .item a{
-	padding: 5px;
+	padding: 8px;
 	text-decoration: none;
 }
 
