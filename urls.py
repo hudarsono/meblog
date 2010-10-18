@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from django.conf.urls.defaults import *
+from django.conf import settings
 
 urlpatterns = patterns('',
     # Example:
@@ -20,4 +21,10 @@ urlpatterns = patterns('',
 
     # Uncomment this for admin:
 #     (r'^admin/', include('django.contrib.admin.urls')),
+
+	# serve static resources
+	(r'^resources/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT }),
+	
+	(r'^', 'posts.views.index'),
+	(r'^posts/', 'posts.views.listPost'),
 )
