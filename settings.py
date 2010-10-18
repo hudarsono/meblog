@@ -19,6 +19,8 @@ import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+ROOT_PATH = os.path.dirname(__file__)
+
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
 )
@@ -51,7 +53,7 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = os.path.join(ROOT_PATH, 'resources')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -95,13 +97,15 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 ROOT_URLCONF = 'urls'
 
-ROOT_PATH = os.path.dirname(__file__)
+
 TEMPLATE_DIRS = (
     os.path.join(ROOT_PATH, 'templates')
 )
 
 INSTALLED_APPS = (
      'appengine_django',
+	 'uni_form'
+	 'posts',
 #    'django.contrib.auth',
 #    'django.contrib.contenttypes',
 #    'django.contrib.sessions',
