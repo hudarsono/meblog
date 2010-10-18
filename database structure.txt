@@ -1,0 +1,15 @@
+Posts
+- id
+- title
+- created
+- modified
+- content
+- category_id
+
+Categories
+- id
+- name
+- created
+- modified
+
+
