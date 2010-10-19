@@ -104,7 +104,6 @@ TEMPLATE_DIRS = (
 
 INSTALLED_APPS = (
      'appengine_django',
-	 'uni_form'
 	 'posts',
 #    'django.contrib.auth',
 #    'django.contrib.contenttypes',
