@@ -91,3 +91,13 @@ thead tr th.last{
 	-webkit-border-top-right-radius:6px;
 	border-top-right-radius:6px;
 }
+
+form p input{
+	width:350;
+}
+
+form ul.errorlist{
+	color:red;
+	list-style:none;
+	display:inline;
+}
