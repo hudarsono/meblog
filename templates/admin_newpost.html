@@ -5,7 +5,7 @@
 <div style="width:400px">
 	<form method="POST" action="{% if action %}{{ action }}{% else %}/post/new/{% endif %}">
 		<p>
-		<label for="id_title">Title : </label><br />
+		<label for="id_title">Title : </label>{{ postForm.title.errors }}<br />
 		{{ postForm.title }}
 		</p>
 		<p>
@@ -18,7 +18,7 @@
 		</p>
 		<p>
 		<label for="id_tags">Tags (separate by space): </label><br />
-		{{ postForm.tags }}
+		<input type="text" name="tags" id="id_tags"/>
 		</p>
 	<input type="submit" value="Publish"/>
 	</form>

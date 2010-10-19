@@ -98,19 +98,20 @@ def showPost(request, year, month, day, key):
 											  'tags': cat_tag['tag_list']})
 
 def newPost(request):
+	postForm = None
 	if request.method == 'POST':
 		newPost = postform.NewPostForm(request.POST)
-		newPost.title = request.POST.get('title')
-		newPost.body = request.POST.get('body')
-		newPost.category = request.POST.get('category')
-		newPost.tags = request.POST.get('tags').split()
-		newPost.save()
-		return HttpResponseRedirect('/posts/')
+		if newPost.is_valid():
+			newPost.save()
+			return HttpResponseRedirect('/posts/')
+		else:
+			postForm = postform.NewPostForm(request.POST)
 
-	if request.method == 'GET':
+
+	if postForm is None:
 		postForm = postform.NewPostForm()
-		return render_to_response('admin_newpost.html', {
-														 'postForm':postForm})
+	return render_to_response('admin_newpost.html', {
+													'postForm':postForm})
 
 def editPost(request, year, month, day, key):
 	if request.method == 'POST':

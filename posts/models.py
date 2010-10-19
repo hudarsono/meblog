@@ -5,10 +5,10 @@ from google.appengine.ext import db
 import datetime
 
 class Post(db.Model):
-    title = db.StringProperty()
-    body = db.TextProperty()
-    category = db.CategoryProperty()
-    tags = db.StringListProperty()
+    title = db.StringProperty(required=True)
+    body = db.TextProperty(required=True)
+    category = db.CategoryProperty(required=True)
+    tags = db.StringListProperty(required=True)
     pub_date = db.DateTimeProperty(auto_now_add=True)
     author = db.UserProperty(auto_current_user_add=True)
 
