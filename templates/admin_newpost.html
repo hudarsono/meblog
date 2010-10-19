@@ -1,0 +1,26 @@
+
+{% extends 'admin_base.html' %}
+
+{% block content %}
+<div style="width:400px">
+	<form method="POST" action="{% if action %}{{ action }}{% else %}/post/new/{% endif %}">
+		<p>
+		<label for="id_title">Title : </label><br />
+		{{ postForm.title }}
+		</p>
+		<p>
+		<label for="id_body">Body : </label><br />
+		{{ postForm.body }}
+		</p>
+		<p>
+		<label for="id_category">Category (word or phrase) : </label><br />
+		{{ postForm.category }}
+		</p>
+		<p>
+		<label for="id_tags">Tags (separate by space): </label><br />
+		{{ postForm.tags }}
+		</p>
+	<input type="submit" value="Publish"/>
+	</form>
+</div>
+{% endblock %}

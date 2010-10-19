@@ -1,0 +1,45 @@
+<html>
+<head>
+<!-- js -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="/resources/css/reset.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/resources/css/text.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/resources/css/960.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/resources/css/admin.css" />
+
+<!-- uniform's css -->
+<link rel="stylesheet" href="/resources/css/uni-form.css" type="text/css" />
+<link rel="stylesheet" href="/resources/css/default.uni-form.css" type="text/css" />
+
+<script src="/resourcse/js/uni-form.jquery.js" type="text/javascript"></script>
+
+
+</head>
+
+<body>
+<div class="container_12">
+	<div class="grid_6">
+		<div id="admin-menu">
+			<ul id="menu-posts">
+				<li class="top"><a href="/posts/">Posts</a></li>
+				<li class="item"><a href="/post/new/">New Post</a></li>
+			</ul>
+			<ul id="menu-cat">
+				<li class="top"><a href="#">Categories</a></li>
+				<li class="item"><a href="#">New Category</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="grid_6">
+		&nbsp;
+	</div>
+
+	<div class="clear" style="height:100"></div>
+
+	{% block content %}{% endblock %}
+
+</div>
+</body>
+</html>

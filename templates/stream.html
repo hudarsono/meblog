@@ -1,15 +1,14 @@
 {% extends 'front-base.html' %}
 
 {% block main_content %}
-<h3 class="title">Title of Post</h3>
-<span class="date">Writen at 12 September 2010</span>
-<p>
-So why doesn't C do it this way? Probably the hardware didn't do this at the time C was designed. And the hardware probably didn't do it this way because in the oldest hardware, negative numbers were represented as "sign + magnitude" rather than the two's complement representation used these days (at least for integers). My first computer was a Control Data mainframe and it used one's complement for integers as well as floats. A pattern of 60 ones meant negative zero!
-
-Tim Peters, who knows where all Python's floating point skeletons are buried, has expressed some worry about my desire to extend these rules to floating point modulo. He's probably right; the truncate-towards-negative-infinity rule can cause precision loss for x%1.0 when x is a very small negative number. But that's not enough for me to break integer modulo, and // is tightly coupled to that.
-
-PS. Note that I am using // instead of / -- this is Python 3 syntax, and also allowed in Python 2 to emphasize that you know you are invoking integer division. The / operator in Python 2 is ambiguous, since it returns a different result for two integer operands than for an int and a float or two floats. But that's a totally separate 
-</p>
+{% for p in posts %}
+	<h3 class="title">{{ p.title}}</h3>
+	<span class="date">Writen at {{ p.pub_date.year }}-{{ p.pub_date.month }}-{{ p.pub_date.day }}</span>
+	<p>
+		{{ p.trunc_body }}[<a href="{{ p.get_absolute_url }}">more</a>]
+	</p>
+	<div class="clear"></div>
+{% endfor %}
 {% endblock %}
 
 
@@ -17,10 +16,19 @@ PS. Note that I am using // instead of / -- this is Python 3 syntax, and also al
 <span class="side-title">Categories</span>
 <div id="nav-cat">
 	<ul>
-		<li>&#187; <a href="#">Python</a></li>
-		<li>&#187; <a href="#">Java</a></li>
-		<li>&#187; <a href="#">Django</a></li>
-		<li>&#187; <a href="#">Google Appengine</a></li>
-	</ul>	
+	{% for cat in categories %}
+		<li>&#187; <a href="{{ cat.url }}">{{ cat.category }}</a>({{ cat.count }})</li>
+	{% endfor %}
+	</ul>
+<div>
+<div class-"clear></div>
+
+<span class="side-title">Tags</span>
+<div id="nav-cat">
+	<ul>
+	{% for tag in tags %}
+		<li>&#187; <a href="{{ tag.url }}">{{ tag.tag }}</a>({{ tag.count }})</li>
+	{% endfor %}
+	</ul>
 <div>
 {% endblock %}
