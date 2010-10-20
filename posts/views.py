@@ -3,7 +3,7 @@ from posts import models
 import postform
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, Http404
 
 from google.appengine.ext.webapp.util import login_required
 
@@ -101,15 +101,18 @@ def listPostByTag(request, tag):
 
 
 def showPost(request, year, month, day, key_name):
-	post = models.Post.get_by_key_name(key_name)
+	post = models.Post.get_by_key_name(key_name.replace('-',' '))
 
-	# get tag and categories
-	cat_tag = get_tag_cat_list()
+	if post:
+		# get tag and categories
+		cat_tag = get_tag_cat_list()
 
-	return render_to_response('post.html', {'post': post,
-											  'categories': cat_tag['cat_list'],
-											  'tags': cat_tag['tag_list']},
-                           						context_instance=RequestContext(request))
+		return render_to_response('post.html', {'post': post,
+												  'categories': cat_tag['cat_list'],
+												  'tags': cat_tag['tag_list']},
+	                           						context_instance=RequestContext(request))
+	else:
+		raise Http404
 
 def newPost(request):
 	postForm = None

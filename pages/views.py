@@ -1,7 +1,7 @@
 # Create your views here.
 from pages import models
 from django.shortcuts import render_to_response
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, Http404
 from django.template import RequestContext
 
 from pageform import PageForm
