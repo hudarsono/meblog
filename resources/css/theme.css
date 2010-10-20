@@ -3,6 +3,7 @@ body{
 	text-shadow: 0px 1px 1px #fff;
 }
 
+
 #nav {
 	margin-top:100px;
 }
@@ -86,4 +87,10 @@ body{
 #side-menu a:hover, #side-menu a:active, #side-menu a:focus{
 	background: rgba(255,255,255,0.5);
 	box-shadow: rgba(255,255,255,0.5) 1px 1px 3px;
+}
+
+form ul.errorlist{
+	color:red;
+	list-style:none;
+	display:inline;
 }

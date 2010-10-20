@@ -1,12 +1,16 @@
-{% extends 'front-base.html' %}
+{% extends 'front_base.html' %}
 
 {% block main_content %}
 {% for p in posts %}
 	<h3 class="title">{{ p.title}}</h3>
 	<span class="date">Writen at {{ p.pub_date.year }}-{{ p.pub_date.month }}-{{ p.pub_date.day }}</span>
 	<p>
-		{{ p.trunc_body }}[<a href="{{ p.get_absolute_url }}">more</a>]
+		{% autoescape off %}
+		{{ p.trunc_body }}
+		{% endautoescape %}
+
 	</p>
+	<hr style="color:white">
 	<div class="clear"></div>
 {% endfor %}
 {% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'admin_base.html' %}
+
+{% block content %}
+<div style="width:400px">
+	<form method="POST" action="{% if action %}{{ action }}{% else %}/page/new/{% endif %}">
+		{{ pageForm.as_p }}
+	<input type="submit" value="Save"/>
+	</form>
+</div>
+{% endblock %}

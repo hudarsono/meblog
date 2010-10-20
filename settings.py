@@ -91,6 +91,10 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 #   'django.core.context_processors.auth',
     'django.core.context_processors.debug',
     'django.core.context_processors.i18n',
+
+    # context processor to get all pages
+    'context.context_processors.pages',
+
 #    'django.core.context_processors.media',  # 0.97 only.
 #    'django.core.context_processors.request',
 )
@@ -105,6 +109,9 @@ TEMPLATE_DIRS = (
 INSTALLED_APPS = (
      'appengine_django',
 	 'posts',
+     'pages',
+     'context',
+     'markdown',
 #    'django.contrib.auth',
 #    'django.contrib.contenttypes',
 #    'django.contrib.sessions',
