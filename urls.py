@@ -26,10 +26,19 @@ urlpatterns = patterns('',
 	(r'^resources/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT }),
 
 	(r'^$', 'posts.views.stream'),
+
 	(r'^posts/$', 'posts.views.listPost'),
     (r'^posts/category/([-\w]+)$', 'posts.views.listPostByCategory'),
+    (r'^posts/tag/([-\w]+)$', 'posts.views.listPostByTag'),
     (r'^post/new/', 'posts.views.newPost'),
     (r'^post/(\d{4})/(\d{2})/(\d{2})/([-\w]+)', 'posts.views.showPost'),
     (r'^post/edit/(\d{4})/(\d{2})/(\d{2})/([-\w]+)', 'posts.views.editPost'),
     (r'^post/delete/(\d{4})/(\d{2})/(\d{2})/([-\w]+)', 'posts.views.delPost'),
+
+    (r'^pages/$', 'pages.views.listPages'),
+    (r'^page/new/', 'pages.views.newPage'),
+    (r'^page/edit/([-\w]+)', 'pages.views.editPage'),
+    (r'^page/delete/([-\w]+)', 'pages.views.delPage'),
+    (r'^contact/$', 'pages.views.contact'),
+    (r'^([-\w]+)', 'pages.views.render'),
 )

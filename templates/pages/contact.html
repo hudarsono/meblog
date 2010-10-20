@@ -1,0 +1,10 @@
+{% extends "front_base.html" %}
+
+{% block main_content %}
+<div style="width:400px">
+	<form action="/contact/" method="POST">
+		{{ form.as_p }}
+		<input type="submit" value="Send" />
+	</form>
+</div>
+{% endblock %}

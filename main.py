@@ -35,7 +35,6 @@ from appengine_django import django_zip_path
 from google.appengine.ext.webapp import util
 
 
-
 # Import the part of Django that we use here.
 import django.core.handlers.wsgi
 

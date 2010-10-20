@@ -1,0 +1,14 @@
+{% extends "front_base.html" %}
+
+{% block main_content %}
+{% if page %}
+	{% autoescape off %}
+	{{ page.content_html }}
+	{% endautoescape %}
+{% else %}
+	<h3>Sorry, this page is not ready yet. Please come back soon.</h3>
+{% endif %}
+{% endblock %}
+
+
+{% block side_menu %}{% endblock %}

@@ -1,7 +1,19 @@
 import models
-from google.appengine.ext.db import djangoforms
+from django import forms
 
-class NewPostForm(djangoforms.ModelForm):
-    class Meta:
-        model = models.Post
-        exclude = ['author', 'pub_date']
+
+class PostForm(forms.Form):
+    title = forms.CharField(max_length=100)
+    body = forms.CharField(widget=forms.Textarea)
+    category = forms.CharField(max_length=30)
+    tags = forms.CharField()
+
+    def save(self, post=None, commit=True):
+        data = self.cleaned_data
+        if not post: post = models.Post(key_name=data['title'].replace(' ','-'))
+        post.title = data['title']
+        post.body = data['body']
+        post.category = data['category']
+        post.tags = data['tags'].split()
+        if commit: post.put()
+        return post

@@ -2,13 +2,12 @@
 from posts import models
 import postform
 from django.shortcuts import render_to_response
+from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse
 
-from google.appengine.api import memcache
+from google.appengine.ext.webapp.util import login_required
 
-# class for new form
-def index(request):
-	return render_to_response('stream.html')
+from google.appengine.api import memcache
 
 
 def listPost(request):
@@ -37,7 +36,7 @@ def get_tag_cat_list():
 	for cat in sorted(cat_list):
 		sorted_cat_list.append({'category': cat,
 							    'count':cat_list[cat],
-							    'url': '/posts/category/%s' % cat,
+							    'url': '/posts/category/%s' % cat.replace(' ','-'),
 							    })
 
 	# get all tags
@@ -64,73 +63,93 @@ def get_tag_cat_list():
 
 
 
+
 def stream(request):
 	# get post list
-	posts = models.Post.all()
+	posts = models.Post.all().order('-pub_date')
 
 	# get tag and categories
 	cat_tag = get_tag_cat_list()
 
 	return render_to_response('stream.html', {'posts': posts,
 											  'categories': cat_tag['cat_list'],
-											  'tags': cat_tag['tag_list']})
+											  'tags': cat_tag['tag_list']},
+                           						context_instance=RequestContext(request))
 
 
 def listPostByCategory(request, cat):
-	posts = models.Post.all().filter('category =', cat)
+	posts = models.Post.all().filter('category =', cat.replace('-',' '))
 
 	# get tag and categories
 	cat_tag = get_tag_cat_list()
 
 	return render_to_response('stream.html', {'posts': posts,
 											  'categories': cat_tag['cat_list'],
-											  'tags': cat_tag['tag_list']})
+											  'tags': cat_tag['tag_list']},
+                           						context_instance=RequestContext(request))
 
 
-def showPost(request, year, month, day, key):
-	post = models.Post.get(key)
+def listPostByTag(request, tag):
+	posts = models.Post.all().filter('tags =', tag)
+
+	# get tag and categories
+	cat_tag = get_tag_cat_list()
+	return render_to_response('stream.html', {'posts': posts,
+											  'categories': cat_tag['cat_list'],
+											  'tags': cat_tag['tag_list']},
+                           						context_instance=RequestContext(request))
+
+
+def showPost(request, year, month, day, key_name):
+	post = models.Post.get_by_key_name(key_name)
 
 	# get tag and categories
 	cat_tag = get_tag_cat_list()
 
 	return render_to_response('post.html', {'post': post,
 											  'categories': cat_tag['cat_list'],
-											  'tags': cat_tag['tag_list']})
+											  'tags': cat_tag['tag_list']},
+                           						context_instance=RequestContext(request))
 
 def newPost(request):
 	postForm = None
 	if request.method == 'POST':
-		newPost = postform.NewPostForm(request.POST)
+		newPost = postform.PostForm(request.POST)
 		if newPost.is_valid():
 			newPost.save()
 			return HttpResponseRedirect('/posts/')
 		else:
-			postForm = postform.NewPostForm(request.POST)
+			postForm = postform.PostForm(request.POST)
 
 
 	if postForm is None:
-		postForm = postform.NewPostForm()
+		postForm = postform.PostForm()
 	return render_to_response('admin_newpost.html', {
 													'postForm':postForm})
 
-def editPost(request, year, month, day, key):
+
+def editPost(request, year, month, day, key_name):
 	if request.method == 'POST':
-		post = models.Post.get(key)
+		post = models.Post.get_by_key_name(key_name)
 		if post:
-			post.title = request.POST.get('title')
-			post.body = request.POST.get('body')
-			post.save()
+			form = postform.PostForm(request.POST)
+			if form.is_valid():
+				form.save(post)
 		return HttpResponseRedirect('/posts/')
 
 	if request.method == 'GET':
-		post = models.Post.get(key)
-		editPostForm = postform.NewPostForm(instance=post)
+		post = models.Post.get_by_key_name(key_name)
+		editPostForm = postform.PostForm(initial={
+												  'title': post.title,
+												  'body': post.body,
+												  'category': post.category,
+												  'tags': ' '.join(post.tags)})
 		return render_to_response('admin_newpost.html', {
 														 'postForm':editPostForm,
 														 'action':post.get_edit_url(),})
 
-def delPost(request, year, month, day, key):
-	post = models.Post.get(key)
+def delPost(request, year, month, day, key_name):
+	post = models.Post.get_by_key_name(key_name)
 	if post:
 		post.delete()
 	return HttpResponseRedirect('/posts/')
