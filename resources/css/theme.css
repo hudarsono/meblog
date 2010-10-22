@@ -44,6 +44,10 @@ body{
 	margin-bottom:5px;
 }
 
+#main-content .title a{
+	text-decoration:none;
+}
+
 #main-content .date{
 }
 
@@ -61,16 +65,16 @@ body{
 	font-weight:bold;
 }
 
-#side-menu #nav-cat{
+#side-menu .nav-cat{
 	padding: 3px;
 	margin-top:8px;
 }
 
-#side-menu #nav-cat ul{
+#side-menu .nav-cat ul{
 	list-style:none;
 }
 
-#side-menu #nav-cat li{
+#side-menu .nav-cat li{
 	height:2em;
 	margin-left:0;
 }

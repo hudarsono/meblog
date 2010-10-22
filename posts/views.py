@@ -12,7 +12,7 @@ from google.appengine.api import memcache
 
 def listPost(request):
 	posts = models.Post.all()
-	return render_to_response('admin_postlist.html', {
+	return render_to_response('admin/postlist.html', {
 													  'posts':posts})
 
 
@@ -71,10 +71,11 @@ def stream(request):
 	# get tag and categories
 	cat_tag = get_tag_cat_list()
 
-	return render_to_response('stream.html', {'posts': posts,
-											  'categories': cat_tag['cat_list'],
-											  'tags': cat_tag['tag_list']},
-                           						context_instance=RequestContext(request))
+	return render_to_response('front/stream.html', {'posts': posts,
+													  'categories': cat_tag['cat_list'],
+													  'tags': cat_tag['tag_list']},
+		                           						context_instance=RequestContext(request))
+
 
 
 def listPostByCategory(request, cat):
@@ -83,10 +84,11 @@ def listPostByCategory(request, cat):
 	# get tag and categories
 	cat_tag = get_tag_cat_list()
 
-	return render_to_response('stream.html', {'posts': posts,
+	return render_to_response('front/stream.html', {'posts': posts,
 											  'categories': cat_tag['cat_list'],
 											  'tags': cat_tag['tag_list']},
                            						context_instance=RequestContext(request))
+
 
 
 def listPostByTag(request, tag):
@@ -94,25 +96,26 @@ def listPostByTag(request, tag):
 
 	# get tag and categories
 	cat_tag = get_tag_cat_list()
-	return render_to_response('stream.html', {'posts': posts,
+	return render_to_response('front/stream.html', {'posts': posts,
 											  'categories': cat_tag['cat_list'],
 											  'tags': cat_tag['tag_list']},
                            						context_instance=RequestContext(request))
 
 
 def showPost(request, year, month, day, key_name):
-	post = models.Post.get_by_key_name(key_name.replace('-',' '))
+	post = models.Post.get_by_key_name(key_name)
 
 	if post:
 		# get tag and categories
 		cat_tag = get_tag_cat_list()
 
-		return render_to_response('post.html', {'post': post,
-												  'categories': cat_tag['cat_list'],
-												  'tags': cat_tag['tag_list']},
-	                           						context_instance=RequestContext(request))
+		return render_to_response('front/post.html', {'post': post,
+													  'categories': cat_tag['cat_list'],
+													  'tags': cat_tag['tag_list']},
+		                           						context_instance=RequestContext(request))
 	else:
 		raise Http404
+
 
 def newPost(request):
 	postForm = None
@@ -127,7 +130,7 @@ def newPost(request):
 
 	if postForm is None:
 		postForm = postform.PostForm()
-	return render_to_response('admin_newpost.html', {
+	return render_to_response('admin/newpost.html', {
 													'postForm':postForm})
 
 
@@ -147,9 +150,10 @@ def editPost(request, year, month, day, key_name):
 												  'body': post.body,
 												  'category': post.category,
 												  'tags': ' '.join(post.tags)})
-		return render_to_response('admin_newpost.html', {
+		return render_to_response('admin/newpost.html', {
 														 'postForm':editPostForm,
 														 'action':post.get_edit_url(),})
+
 
 def delPost(request, year, month, day, key_name):
 	post = models.Post.get_by_key_name(key_name)
