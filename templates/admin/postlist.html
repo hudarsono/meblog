@@ -2,12 +2,13 @@
 
 {% block content %}
 <div class="grid_12">
+	<h3>Posts</h3>
 	<table>
 		<thead>
 			<tr>
-				<th class="first">Action</th>
-				<th>Title</th>
-				<th class="last">Created</th>
+				<th class="first menu">Action</th>
+				<th class="title">Title</th>
+				<th class="last date">Created</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -15,7 +16,7 @@
 			{% for p in posts %}
 				<tr>
 					<td><a href="{{ p.get_edit_url }}">Edit</a> | <a href="{{ p.get_delete_url }}">Remove</a></td>
-					<td>{{ p.title }}</td>
+					<td class="left">{{ p.title }}</td>
 					<td>{{ p.pub_date.year }}-{{ p.pub_date.month }}-{{ p.pub_date.day }}</td>
 				</tr>
 			{% endfor %}

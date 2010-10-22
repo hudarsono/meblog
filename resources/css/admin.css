@@ -12,10 +12,13 @@ body{
 	width:100px;
 	float:left;
 	margin:0px;
-	padding:2px;
+	padding:0px;
 	list-style:none;
 }
 
+#admin-menu ul li{
+	margin-left:0;
+}
 
 #admin-menu ul .top a{
 	text-decoration: none;
@@ -57,8 +60,7 @@ body{
 table{
 	width: 90%;
 	border-collapse:collapse;
-	float:left;
-	margin-left:30px;
+	margin-left;
 }
 
 td{
@@ -69,6 +71,13 @@ td{
 	padding:.3em 1em;
 	text-align:center;
 }
+
+td.left{
+	text-align:left;
+}
+
+table .menu{width:150px;}
+table .date{width:150px;}
 
 tr.odd td {
 	background:#f7fbff;
@@ -92,6 +101,8 @@ thead tr th.last{
 	border-top-right-radius:6px;
 }
 
+
+
 form p label{
 	width: 300;
 	display:block;
@@ -101,6 +112,35 @@ form p input{
 	width:350;
 	text-align:left;
 }
+
+form input.submit{
+	width:70px;
+	background-color: #878485;
+	display: inline-block;
+	color: #fff;
+	text-decoration: none;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+	position: relative;
+	font-size: 14px;
+	padding: 8px 14px 9px;
+	border:1px solid #dedede;
+	margin-top:15px;
+}
+form input.submit:hover{
+	cursor: pointer;
+	background-color: #737272;
+}
+
+form input.submit:active{
+	background-color: #5E5E5E;
+	top:1px;
+}
+
 
 form ul.errorlist{
 	color:red;
