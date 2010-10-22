@@ -13,6 +13,10 @@
 	<hr style="color:white">
 	<div class="clear"></div>
 {% endfor %}
+
+{% if paging.prev %}<a href="/?page={{ paging.prev }}">Prev Posts</a> &nbsp;&nbsp;{% endif %}
+{% if paging.next %}<a href="/?page={{ paging.next }}">More Post</a>{% endif %}
+
 {% endblock %}
 
 

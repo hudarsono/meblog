@@ -119,3 +119,7 @@ INSTALLED_APPS = (
 #    'django.contrib.sessions',
 #    'django.contrib.sites',
 )
+
+
+# APP SETTINGS
+PAGESIZE = 5

@@ -5,10 +5,11 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect, Http404
 
-from google.appengine.ext.webapp.util import login_required
+from django.conf import settings
 
 from google.appengine.api import memcache
 
+from gaesessions import get_current_session
 
 def listPost(request):
 	posts = models.Post.all()
@@ -65,13 +66,33 @@ def get_tag_cat_list():
 
 
 def stream(request):
-	# get post list
-	posts = models.Post.all().order('-pub_date')
+	PAGESIZE = int(settings.PAGESIZE)
 
+	# get post list
+	if request.GET.get('page'):
+		#get the corrent page
+		page = int(request.GET.get('page'))
+		offset = settings.PAGESIZE *(page - 1)
+		posts = models.Post.all().order('-pub_date').fetch(settings.PAGESIZE, offset)
+	else:
+		posts = models.Post.all().order('-pub_date').fetch(settings.PAGESIZE)
+		page = 1
+
+
+	# check if there is next page
+	offset = settings.PAGESIZE *(page)
+	next_page = models.Post.all().order('-pub_date').fetch(settings.PAGESIZE, offset)
+	if next_page:
+		p_next = page + 1
+	else:
+		p_next = None
+
+	paging = {'prev': page - 1, 'next':p_next}
 	# get tag and categories
 	cat_tag = get_tag_cat_list()
 
 	return render_to_response('front/stream.html', {'posts': posts,
+												    'paging':paging,
 													  'categories': cat_tag['cat_list'],
 													  'tags': cat_tag['tag_list']},
 		                           						context_instance=RequestContext(request))
@@ -85,9 +106,9 @@ def listPostByCategory(request, cat):
 	cat_tag = get_tag_cat_list()
 
 	return render_to_response('front/stream.html', {'posts': posts,
-											  'categories': cat_tag['cat_list'],
-											  'tags': cat_tag['tag_list']},
-                           						context_instance=RequestContext(request))
+													  'categories': cat_tag['cat_list'],
+													  'tags': cat_tag['tag_list']},
+		                           						context_instance=RequestContext(request))
 
 
 
