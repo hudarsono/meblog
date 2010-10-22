@@ -11,6 +11,7 @@ class Page(db.Model):
     body = db.TextProperty()
     body_html = db.TextProperty()
     template = db.StringProperty()
+    navbar = db.BooleanProperty()
     publish = db.BooleanProperty()
     created = db.DateTimeProperty(auto_now_add=True)
     author = db.UserProperty(auto_current_user_add=True)

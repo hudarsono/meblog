@@ -11,6 +11,8 @@ from google.appengine.api import memcache
 
 from gaesessions import get_current_session
 
+
+
 def listPost(request):
 	posts = models.Post.all()
 	return render_to_response('admin/postlist.html', {
@@ -67,17 +69,23 @@ def get_tag_cat_list():
 
 def stream(request):
 	PAGESIZE = int(settings.PAGESIZE)
+	offset = 0
 
 	# get post list
 	if request.GET.get('page'):
 		#get the corrent page
 		page = int(request.GET.get('page'))
-		offset = settings.PAGESIZE *(page - 1)
-		posts = models.Post.all().order('-pub_date').fetch(settings.PAGESIZE, offset)
 	else:
-		posts = models.Post.all().order('-pub_date').fetch(settings.PAGESIZE)
 		page = 1
 
+
+	offset = settings.PAGESIZE *(page - 1)
+
+	if memcache.get('blogpage-'+str(page)):
+		posts = memcache.get('blogpage-'+str(page))
+	else:
+		posts = models.Post.all().order('-pub_date').fetch(settings.PAGESIZE, offset)
+		memcache.set('blogpage-'+str(page), posts)
 
 	# check if there is next page
 	offset = settings.PAGESIZE *(page)
@@ -96,6 +104,7 @@ def stream(request):
 													  'categories': cat_tag['cat_list'],
 													  'tags': cat_tag['tag_list']},
 		                           						context_instance=RequestContext(request))
+
 
 
 
@@ -123,9 +132,9 @@ def listPostByTag(request, tag):
                            						context_instance=RequestContext(request))
 
 
+
 def showPost(request, year, month, day, key_name):
 	post = models.Post.get_by_key_name(key_name)
-
 	if post:
 		# get tag and categories
 		cat_tag = get_tag_cat_list()

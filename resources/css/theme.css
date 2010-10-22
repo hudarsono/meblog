@@ -93,6 +93,38 @@ body{
 	box-shadow: rgba(255,255,255,0.5) 1px 1px 3px;
 }
 
+form#contact input{
+	width:270px;
+}
+
+form#contact input.submit{
+	width:70px;
+	background-color: #878485;
+	display: inline-block;
+	color: #fff;
+	text-decoration: none;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+	position: relative;
+	font-size: 14px;
+	padding: 8px 14px 9px;
+	border:1px solid #dedede;
+	margin-top:15px;
+}
+form#contact input.submit:hover{
+	cursor: pointer;
+	background-color: #737272;
+}
+
+form#contact input.submit:active{
+	background-color: #5E5E5E;
+	top:1px;
+}
+
 form ul.errorlist{
 	color:red;
 	list-style:none;

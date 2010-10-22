@@ -7,6 +7,7 @@ class PageForm(forms.Form):
     description = forms.CharField(max_length=300, required=False)
     body = forms.CharField(widget=forms.Textarea)
     template = forms.CharField(max_length=30)
+    navbar = forms.BooleanField(required=False)
     publish = forms.BooleanField(required=False)
 
     def save(self, page=None, commit=True):
