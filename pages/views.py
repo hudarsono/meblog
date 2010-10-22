@@ -21,7 +21,7 @@ def render(request, name):
 
 def listPages(request):
     pages = models.Page.all()
-    return render_to_response('admin_pagelist.html', {
+    return render_to_response('admin/pagelist.html', {
                                                      'pages':pages})
 
 def newPage(request):
@@ -37,7 +37,7 @@ def newPage(request):
     if pageForm is None:
         pageForm = PageForm()
 
-    return render_to_response('admin_newpage.html', {
+    return render_to_response('admin/newpage.html', {
                                                      'pageForm':pageForm})
 
 
@@ -60,7 +60,7 @@ def editPage(request, key_name):
                                          'body':page.body,
                                          'template':page.template,
                                          'publish':page.publish})
-    return render_to_response('admin_newpage.html', {'pageForm':pageForm,
+    return render_to_response('admin/newpage.html', {'pageForm':pageForm,
                                                      'action':page.get_edit_url()})
 
 def delPage(request, key_name):
@@ -72,18 +72,22 @@ def delPage(request, key_name):
 
 def contact(request):
     form = None
+    msg = None
     if request.method == 'POST':
         newMessage = ContactForm(request.POST)
         if newMessage.is_valid():
+            data = newMessage.cleaned_data
             #send message
             mail.send_mail(sender="hudarsono.appspot.com <contact@hudarsono.appspot.com>",
                               to="Hudarsono <hudarsono@gmail.com>",
-                              subject="New Message from "+newMessage.name,
-                              body="Sender Email : "+newMessage.email+"\n Message : "+newMessage.message)
+                              subject="New Message from "+data['name'],
+                              body="Sender Email : "+data['email']+"\n Message : "+data['message'])
+
+            msg = 'Thanks for your message, will get back to you soon.'
         else:
             form = ContactForm(request.POST)
 
     if form is None: form = ContactForm()
 
-    return render_to_response('pages/contact.html', {'form':form},
+    return render_to_response('pages/contact.html', {'form':form, 'msg':msg},
                                                    context_instance=RequestContext(request))

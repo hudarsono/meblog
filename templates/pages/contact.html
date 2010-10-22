@@ -1,9 +1,10 @@
-{% extends "front_base.html" %}
+{% extends "front/base.html" %}
 
 {% block main_content %}
 <div style="width:400px">
 	<form action="/contact/" method="POST">
 		{{ form.as_p }}
+		{% if msg %}<span class="msg">{{ msg }}</span>{% endif %}
 		<input type="submit" value="Send" />
 	</form>
 </div>

@@ -1,8 +1,8 @@
-{% extends 'front_base.html' %}
+{% extends 'front/base.html' %}
 
 {% block main_content %}
 {% for p in posts %}
-	<h3 class="title">{{ p.title}}</h3>
+	<h3 class="title"><a href="{{ p.get_absolute_url }}">{{ p.title}}</a></h3>
 	<span class="date">Writen at {{ p.pub_date.year }}-{{ p.pub_date.month }}-{{ p.pub_date.day }}</span>
 	<p>
 		{% autoescape off %}
@@ -18,21 +18,22 @@
 
 {% block side_menu %}
 <span class="side-title">Categories</span>
-<div id="nav-cat">
+<div class="nav-cat">
 	<ul>
 	{% for cat in categories %}
 		<li>&#187; <a href="{{ cat.url }}">{{ cat.category }}</a>({{ cat.count }})</li>
 	{% endfor %}
 	</ul>
-<div>
-<div class-"clear></div>
+</div>
+
+<div class="clear"></div>
 
 <span class="side-title">Tags</span>
-<div id="nav-cat">
+<div class="nav-cat">
 	<ul>
 	{% for tag in tags %}
 		<li>&#187; <a href="{{ tag.url }}">{{ tag.tag }}</a>({{ tag.count }})</li>
 	{% endfor %}
 	</ul>
-<div>
+</div>
 {% endblock %}

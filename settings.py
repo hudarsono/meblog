@@ -112,6 +112,8 @@ INSTALLED_APPS = (
      'pages',
      'context',
      'markdown',
+     'pygments',
+     'gaesessions',
 #    'django.contrib.auth',
 #    'django.contrib.contenttypes',
 #    'django.contrib.sessions',
