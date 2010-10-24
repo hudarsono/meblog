@@ -8,7 +8,7 @@ class PageForm(forms.Form):
     body = forms.CharField(widget=forms.Textarea)
     template = forms.CharField(max_length=30)
     navbar = forms.BooleanField(required=False)
-    publish = forms.BooleanField(required=False)
+    publish = forms.BooleanField()
 
     def save(self, page=None, commit=True):
         data = self.cleaned_data

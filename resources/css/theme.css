@@ -1,5 +1,5 @@
 body{
-	background-color:#D5DBE0;
+	background-color:#2A378C;
 	text-shadow: 0px 1px 1px #fff;
 }
 
@@ -28,16 +28,23 @@ body{
 	-moz-border-radius:6px;
 	-webkit-border-radius:6px;
 	border-radius:6px;
+	color:white;
+	text-shadow: none;
 }
 
 #nav ul a:hover, #nav ul a:active, #nav ul a:focus {
-	background: rgba(255,255,255,0.5);
-	box-shadow: rgba(255,255,255,0.5) 1px 1px 3px;
+	background: rgba(255,255,255,0.8);
+	box-shadow: rgba(255,255,255,0.8) 1px 1px 3px;
+	color:#2A378C;
 }
 
 #main-content .content{
 	padding:5px;
-	margin-right:20px;
+	margin-right:5px;
+	background: rgba(255,255,255,0.7);
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
 }
 
 #main-content .title{
@@ -60,6 +67,16 @@ body{
 }
 
 
+#side-menu{
+	background: rgba(255,255,255,0.7);
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+}
+
+#side-menu .widget{
+	padding:10px;
+}
 
 #side-menu .side-title{
 	font-weight:bold;
@@ -93,13 +110,58 @@ body{
 	box-shadow: rgba(255,255,255,0.5) 1px 1px 3px;
 }
 
-form#contact input{
-	width:270px;
+form{
+	margin:0;
+	padding:0;
+	position:relative;
+	z-index:1;
+	line-height:1.5;
 }
 
-form#contact input.submit{
+form fieldset{
+	border: medium none;
+	margin:0;
+	padding:0;
+}
+
+form .ctrlHolder{
+	border-bottom: 1px solid #EFEFEF;
+	padding:1em;
+}
+
+form .ctrlHolder, form .buttonHolder{
+	clear:both;
+	margin:0;
+	padding: 1em;
+}
+
+form label{
+	display:block;
+	float:none;
+	line-height:100%;
+	width:auto;
+	margin:0 0 0.5em;
+	color:#000;
+}
+
+form .textInput, form textarea{
+	background:none repeat scroll 0 0 #FFFFFF;
+	border: 1px solid #AAAAAA;
+	padding: 4px 2px;
+}
+
+form textarea{
+	height:12em;
+}
+
+form .textInput, form .fileUpload, form .selectInput, form select, form textarea{
+	margin:0;
+	width:90%;
+}
+
+form input.submit{
 	width:70px;
-	background-color: #878485;
+	background-color: #2A378C;
 	display: inline-block;
 	color: #fff;
 	text-decoration: none;
@@ -115,13 +177,13 @@ form#contact input.submit{
 	border:1px solid #dedede;
 	margin-top:15px;
 }
-form#contact input.submit:hover{
+form input.submit:hover{
 	cursor: pointer;
-	background-color: #737272;
+	background-color: #20368B;
 }
 
-form#contact input.submit:active{
-	background-color: #5E5E5E;
+form input.submit:active{
+	background-color: #1E3480;
 	top:1px;
 }
 
@@ -129,4 +191,5 @@ form ul.errorlist{
 	color:red;
 	list-style:none;
 	display:inline;
+	margin-left:0;
 }

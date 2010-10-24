@@ -1,5 +1,5 @@
 body{
-	background-color:#D5DBE0;
+	background-color:#2A378C;
 	text-shadow: 0px 1px 1px #fff;
 }
 
@@ -27,11 +27,14 @@ body{
 	-moz-border-radius:6px;
 	-webkit-border-radius:6px;
 	border-radius:6px;
+	color:white;
+	text-shadow:none;
 }
 
 #admin-menu ul .top a:hover, #admin-menu ul .top a:focus{
-	background: rgba(255,255,255,0.8);
-	box-shadow: rgba(255,255,255,0.8) 1px 1px 3px;
+	background: rgba(255,255,255,0.9);
+	box-shadow: rgba(255,255,255,0.9) 1px 1px 3px;
+	color:#2A378C;
 }
 
 #admin-menu ul .item{
@@ -57,6 +60,33 @@ body{
 	text-decoration: underline;
 }
 
+div.content{
+	background: rgba(255,255,255,0.8);
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	padding:5px;
+}
+
+div.content .left-form{
+	background: rgba(255,255,255,0.8);
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	width:635px;
+	height:500px;
+	float:left;
+}
+div.right-form{
+	width:295px;
+	height:500px;
+	background: rgba(188,204,242,0.5);
+	float:right;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+}
+
 table{
 	width: 90%;
 	border-collapse:collapse;
@@ -65,9 +95,9 @@ table{
 
 td{
 	color:#000;
-	border-bottom:1px solid #e5eff8;
-	border-right:1px solid #e5eff8;
-	border-left:1px solid #e5eff8;
+	border-bottom:1px solid #2A378C;
+	border-right:1px solid #2A378C;
+	border-left:1px solid #2A378C;
 	padding:.3em 1em;
 	text-align:center;
 }
@@ -84,10 +114,11 @@ tr.odd td {
 }
 
 thead th{
-	background:#f4f9fe;
+	background:#2A378C;
 	text-align:center;
 	font:bold 1.2em/2em "Century Gothic","Trebuchet MS",Arial,Helvetica,sans-serif;
-	color:#3C32FA;
+	color:white;
+	text-shadow:none;
 }
 
 thead tr th.first{
@@ -101,7 +132,10 @@ thead tr th.last{
 	border-top-right-radius:6px;
 }
 
-
+form select{
+	padding:3px;
+	border-style: solid;
+}
 
 form p label{
 	width: 300;
@@ -115,7 +149,7 @@ form p input{
 
 form input.submit{
 	width:70px;
-	background-color: #878485;
+	background-color: #2A378C;
 	display: inline-block;
 	color: #fff;
 	text-decoration: none;
@@ -133,11 +167,11 @@ form input.submit{
 }
 form input.submit:hover{
 	cursor: pointer;
-	background-color: #737272;
+	background-color: #20368B;
 }
 
 form input.submit:active{
-	background-color: #5E5E5E;
+	background-color: #1E3480;
 	top:1px;
 }
 
