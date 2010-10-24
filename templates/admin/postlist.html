@@ -1,7 +1,6 @@
 {% extends 'admin/base.html' %}
 
 {% block content %}
-<div class="grid_12">
 	<h3>Posts</h3>
 	<table>
 		<thead>
@@ -12,7 +11,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		{% if posts %}
+		{% if posts.count > 0 %}
 			{% for p in posts %}
 				<tr>
 					<td><a href="{{ p.get_edit_url }}">Edit</a> | <a href="{{ p.get_delete_url }}">Remove</a></td>
@@ -21,9 +20,8 @@
 				</tr>
 			{% endfor %}
 		{% else %}
-			No Post
+			<tr><td colspan="3" style="text-align:left;font-size:15">No Post</td></tr>
 		{% endif %}
 		</tbody>
 	</table>
-</div>
 {% endblock %}

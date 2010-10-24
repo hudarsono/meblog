@@ -12,9 +12,8 @@ from google.appengine.api import memcache
 from gaesessions import get_current_session
 
 
-
 def listPost(request):
-	posts = models.Post.all()
+	posts = models.Post.all().order('-pub_date')
 	return render_to_response('admin/postlist.html', {
 													  'posts':posts})
 

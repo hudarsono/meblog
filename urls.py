@@ -39,6 +39,9 @@ urlpatterns = patterns('',
     (r'^page/new/', 'pages.views.newPage'),
     (r'^page/edit/([-\w]+)', 'pages.views.editPage'),
     (r'^page/delete/([-\w]+)', 'pages.views.delPage'),
+
+	(r'^media/upload/', 'media.views.upload'),
+	
     (r'^contact/$', 'pages.views.contact'),
     (r'^([-\w]+)', 'pages.views.render'),
 )
