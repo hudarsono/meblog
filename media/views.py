@@ -5,6 +5,8 @@ from google.appengine.ext import blobstore
 from media import models
 from fileform import FileForm
 from utilities import blob_helper
+import urllib
+import logging
 
 def upload(request):
     form = None
@@ -27,3 +29,8 @@ def upload(request):
     return render_to_response('admin/upload.html', {'upload_url':upload_url,
 													'upload_error': request.session.pop('upload_error', None),
 													'form': form})
+
+def download(request, key):
+    blob_key = str(urllib.unquote(key))
+    blob = blobstore.BlobInfo.get(blob_key)
+    return blob_helper.send_blob(request, blob, save_as=True)

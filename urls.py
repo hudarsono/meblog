@@ -41,7 +41,8 @@ urlpatterns = patterns('',
     (r'^page/delete/([-\w]+)', 'pages.views.delPage'),
 
 	(r'^media/upload/', 'media.views.upload'),
-	
+    (r'^media/download/([-\w]+)', 'media.views.download'),
+
     (r'^contact/$', 'pages.views.contact'),
     (r'^([-\w]+)', 'pages.views.render'),
 )
