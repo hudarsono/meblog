@@ -7,4 +7,3 @@ class Media(db.Model):
 	title = db.StringProperty()
 	created = db.DateTimeProperty(auto_now_add=True)
 	media = blobstore.BlobReferenceProperty()
-	
