@@ -1,0 +1,37 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+	<h3>Media</h3>
+	<table>
+		<thead>
+			<tr>
+				<th class="first menu">Action</th>
+				<th>Title</th>
+				<th>Filename</th>
+				<th>Type</th>
+				<th>Size</th>
+				<th class="last date">Created</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% if list.count > 0 %}
+			{% for l in list %}
+				<tr>
+					<td><a href="{{ l.get_delete_url }}"><img src="/resources/img/small/trash.png" border="0" title="Delete"></a></td>
+					<td>{{ l.title }}</td>
+					<td>{{ l.filename }}</td>
+					<td>{{ l.type }}</td>
+					<td>{{ l.filesize }}</td>
+					<td>{{ l.created.year }}-{{l.created.month }}-{{ l.created.day }}</td>
+				</tr>
+			{% endfor %}
+		{% else %}
+			<tr>
+				<td colspan="6">No Media File</td>
+			</tr>
+		{% endif %}
+		</tbody>
+	</table>
+	{% if paging.prev %}<a href="/media/?page={{ paging.prev }}">Prev Posts</a> &nbsp;&nbsp;{% endif %}
+	{% if paging.next %}<a href="/media/?page={{ paging.next }}">More Post</a>{% endif %}
+{% endblock %}

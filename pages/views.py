@@ -1,14 +1,19 @@
-# Create your views here.
-from pages import models
+# Django module
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect, Http404
 from django.template import RequestContext
+from django.conf import settings
 
+# App module
+from pages import models
 from pageform import PageForm
 from contactform import ContactForm
 
+# Appengine module
 from google.appengine.api import memcache
 from google.appengine.api import mail
+
+PAGESIZE = settings.PAGESIZE
 
 def render(request, name):
     page = models.Page.get_by_key_name(name)
@@ -20,9 +25,32 @@ def render(request, name):
 
 
 def listPages(request):
-    pages = models.Page.all()
-    return render_to_response('admin/pagelist.html', {
-                                                     'pages':pages})
+    if request.GET.get('page'):
+        page = int(request.GET.get('page'))
+    else:
+        page = 1
+
+    offset = PAGESIZE *(page - 1)
+
+    if memcache.get('pagespage-'+str(page)):
+        pages = memcache.get('pagespage-'+str(page))
+    else:
+        pages = models.Page.all().fetch(PAGESIZE, offset)
+        memcache.set('pagespage-'+str(page), pages)
+
+    # check if there is next page
+    offset = PAGESIZE *(page)
+    next_page = models.Page.all().fetch(PAGESIZE, offset)
+    if next_page:
+        p_next = page + 1
+    else:
+        p_next = None
+
+    paging = {'prev': page - 1, 'next':p_next}
+
+    return render_to_response('admin/pagelist.html', {'pages':pages,
+                                                      'paging':paging})
+
 
 def newPage(request):
     pageForm = None

@@ -7,6 +7,8 @@
 			<tr>
 				<th class="first menu">Action</th>
 				<th class="title">Title</th>
+				<th>Category</th>
+				<th>Tags</th>
 				<th class="last date">Created</th>
 			</tr>
 		</thead>
@@ -14,8 +16,11 @@
 		{% if posts.count > 0 %}
 			{% for p in posts %}
 				<tr>
-					<td><a href="{{ p.get_edit_url }}">Edit</a> | <a href="{{ p.get_delete_url }}">Remove</a></td>
+					<td><a href="{{ p.get_delete_url }}"><img src="/resources/img/small/trash.png" border="0" title="Delete"></a> |
+						<a href="{{ p.get_edit_url }}"><img src="/resources/img/small/edit.png" border="0" title="Edit"></a></td>
 					<td class="left">{{ p.title }}</td>
+					<td class="left">{{ p.category }}</td>
+					<td class="left">{{ p.tags|join:"," }}</td>
 					<td>{{ p.pub_date.year }}-{{ p.pub_date.month }}-{{ p.pub_date.day }}</td>
 				</tr>
 			{% endfor %}
@@ -24,4 +29,6 @@
 		{% endif %}
 		</tbody>
 	</table>
+	{% if paging.prev %}<a href="/posts/?page={{ paging.prev }}">Prev Posts</a> &nbsp;&nbsp;{% endif %}
+	{% if paging.next %}<a href="/posts/?page={{ paging.next }}">More Post</a>{% endif %}
 {% endblock %}
