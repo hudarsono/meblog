@@ -1,0 +1,49 @@
+{% extends 'front/base.html' %}
+
+{% block main_content %}
+{% if posts %}
+{% for p in posts %}
+	<h3 class="title"><a href="{{ p.get_absolute_url }}">{{ p.title}}</a></h3>
+	<span class="date">Writen at {{ p.pub_date.year }}-{{ p.pub_date.month }}-{{ p.pub_date.day }}</span>
+	<p>
+		{% autoescape off %}
+		{{ p.trunc_body }}
+		{% endautoescape %}
+
+	</p>
+	<hr style="color:white">
+	<div class="clear"></div>
+{% endfor %}
+
+{% if paging.prev %}<a href="/?page={{ paging.prev }}">Prev Posts</a> &nbsp;&nbsp;{% endif %}
+{% if paging.next %}<a href="/?page={{ paging.next }}">More Post</a>{% endif %}
+{% else %}
+	<h3>No Post</h3>
+{% endif %}
+{% endblock %}
+
+
+{% block side_menu %}
+<div class="widget">
+<span class="side-title">Categories</span>
+<div class="nav-cat">
+	<ul>
+	{% for cat in categories %}
+		<li>&#187; <a href="{{ cat.url }}">{{ cat.category }}</a>({{ cat.count }})</li>
+	{% endfor %}
+	</ul>
+</div>
+</div>
+<div class="clear"></div>
+
+<div class="widget">
+<span class="side-title">Tags</span>
+<div class="nav-cat">
+	<ul>
+	{% for tag in tags %}
+		<li>&#187; <a href="{{ tag.url }}">{{ tag.tag }}</a>({{ tag.count }})</li>
+	{% endfor %}
+	</ul>
+</div>
+</div>
+{% endblock %}

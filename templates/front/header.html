@@ -1,0 +1,20 @@
+<div class="grid_6">
+	&nbsp;
+</div>
+
+<div class="grid_6">
+	<div id="nav">
+		<ul>
+			<li><a href="/">Home</a></li>
+
+			<!-- interate to show all the pages -->
+			{% if context_pages %}
+				{% for page in context_pages %}
+					<li><a href="{{ page.url }}">{{ page.name }}</a></li>
+				{% endfor %}
+			{% endif %}
+
+			<li><a href="/contact/">Contact</a></li>
+		</ul>
+	</div>
+</div>

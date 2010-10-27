@@ -1,0 +1,51 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+<form class="uniform" method="POST" action="{% if action %}{{ action }}{% else %}/page/new/{% endif %}">
+<fieldset>
+<div class="left-form">
+			<div class="ctrlHolder">
+				<label for="id_name" style="display:block">Name {{ pageForm.name.errors }}</label>
+				<input id="id_name" class="textInput" type="text" size="50" name="name" max_length="100"/>
+				<span class="inlineLabels"><p class="formHint">Max : 100 characters</p></span>
+			</div>
+			<div class="ctrlHolder">
+				<label for="id_description" style="display:block">Description {{ pageForm.description.errors }}</label>
+				<input id="id_description" class="textInput" type="text" size="50" name="description" max_length="100">
+				<span class="inlineLabels"><p class="formHint">(Optional) Max : 300 characters</p></span>
+			</div>
+			<div class="ctrlHolder">
+				<label for="id_body" style="display:block">Body {{ pageForm.body.errors }}</label>
+				<textarea id="id_body" name="body" cols="40" rows="18"></textarea>
+				<span class="inlineLabels"><p class="formHint">Use markdown to style the text.
+					<a href="http://daringfireball.net/projects/markdown/basics">Please read documentation</a></p></span>
+			</div>
+			<div class="buttonHolder">
+				<input class="submit" type="submit" value="Save"/>
+			</div>
+</div>
+<div class="right-form">
+	<div class="ctrlHolder">
+		<label for="id_publish" style="display:block">Publish {{ pageForm.publish.errors }}</label>
+		<select id="id_publish" class=""name="publish">
+			<option value="Published">Publish Now</option>
+			<option value="Private">Private</option>
+			<option value="Draft">Draft</option>
+		</select>
+	</div>
+	<div class="ctrlHolder">
+		<label for="id_navbar" style="display:block">Side Bar {{ pageForm.navbar.errors }}</label>
+		<select id="id_navbar" class=""name="navbar">
+			<option value="True">True</option>
+			<option value="False">False</option>
+		</select>
+	</div>
+	<div class="ctrlHolder">
+		<label for="id_template" style="display:block">Template {{ pageForm.template.errors }}</label>
+		<input id="id_template" class="textInput" type="text"name="template"/>
+		<span class="inlineLabels"><p class="formHint">Template Filename (*.html)</p></span>
+	</div>
+</div>
+</fieldset>
+</form>
+{% endblock %}

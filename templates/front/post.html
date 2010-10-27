@@ -1,0 +1,38 @@
+{% extends 'front/base.html' %}
+
+{% block main_content %}
+	<h3 class="title">{{ post.title}}</h3>
+	<span class="date">Writen at {{ post.pub_date.year }}-{{ post.pub_date.month }}-{{ post.pub_date.day }}</span>
+	<p>
+		{% autoescape off %}
+		{{ post.body_html|safe }}
+		{% endautoescape %}
+	</p>
+	<div class="clear"></div>
+{% endblock %}
+
+
+{% block side_menu %}
+<div class="widget">
+<span class="side-title">Categories</span>
+<div class="nav-cat">
+	<ul>
+	{% for cat in categories %}
+		<li>&#187; <a href="{{ cat.url }}">{{ cat.category }}</a>({{ cat.count }})</li>
+	{% endfor %}
+	</ul>
+</div>
+</div>
+<div class-"clear"></div>
+
+<div class="widget">
+<span class="side-title">Tags</span>
+<div class="nav-cat">
+	<ul>
+	{% for tag in tags %}
+		<li>&#187; <a href="{{ tag.url }}">{{ tag.tag }}</a>({{ tag.count }})</li>
+	{% endfor %}
+	</ul>
+</div>
+</div>
+{% endblock %}

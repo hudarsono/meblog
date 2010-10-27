@@ -1,0 +1,27 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+	<h3>Posts</h3>
+	<table>
+		<thead>
+			<tr>
+				<th class="first menu">Action</th>
+				<th class="title">Title</th>
+				<th class="last date">Created</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% if posts.count > 0 %}
+			{% for p in posts %}
+				<tr>
+					<td><a href="{{ p.get_edit_url }}">Edit</a> | <a href="{{ p.get_delete_url }}">Remove</a></td>
+					<td class="left">{{ p.title }}</td>
+					<td>{{ p.pub_date.year }}-{{ p.pub_date.month }}-{{ p.pub_date.day }}</td>
+				</tr>
+			{% endfor %}
+		{% else %}
+			<tr><td colspan="3" style="text-align:left;font-size:15">No Post</td></tr>
+		{% endif %}
+		</tbody>
+	</table>
+{% endblock %}
