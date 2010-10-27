@@ -113,7 +113,6 @@ INSTALLED_APPS = (
      'context',
      'markdown',
      'pygments',
-     'gaesessions',
 #    'django.contrib.auth',
 #    'django.contrib.contenttypes',
 #    'django.contrib.sessions',
@@ -123,3 +122,7 @@ INSTALLED_APPS = (
 
 # APP SETTINGS
 PAGESIZE = 5
+BLOG_TITLE = 'Hudarsono\'s Blog'
+SITE_URL = 'localhost'
+AUTHOR = 'Hudarsono'
+AUTHOR_EMAIL = 'hudarsono@gmail.com'

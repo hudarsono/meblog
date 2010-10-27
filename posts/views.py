@@ -9,7 +9,6 @@ from django.conf import settings
 
 from google.appengine.api import memcache
 
-from gaesessions import get_current_session
 
 
 def listPost(request):
