@@ -14,6 +14,8 @@
 
 from django.conf.urls.defaults import *
 from django.conf import settings
+from posts.rss import LatestFeed
+
 
 urlpatterns = patterns('',
     # Example:
@@ -45,6 +47,7 @@ urlpatterns = patterns('',
 	(r'^media/upload/', 'media.views.upload'),
     (r'^media/download/([-\w]+)', 'media.views.download'),
 
+	(r'^feeds/latest/$', LatestFeed()),
 
     (r'^contact/$', 'pages.views.contact'),
     (r'^([-\w]+)', 'pages.views.render'),

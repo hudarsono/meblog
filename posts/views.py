@@ -9,7 +9,6 @@ from django.conf import settings
 
 from google.appengine.api import memcache
 
-from gaesessions import get_current_session
 
 
 PAGESIZE = settings.PAGESIZE
@@ -253,6 +252,9 @@ def editPost(request, year, month, day, key_name):
 
   if request.method == 'GET':
     post = models.Post.get_by_key_name(key_name)
+    import logging
+    logging.info(post.title)
+    logging.info(post.body)
     editPostForm = postform.PostForm(initial={
                           'title': post.title,
                           'body': post.body,

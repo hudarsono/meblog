@@ -3,10 +3,10 @@ from django import forms
 
 
 class PostForm(forms.Form):
-    title = forms.CharField(max_length=100)
-    body = forms.CharField(widget=forms.Textarea)
-    category = forms.CharField(max_length=30)
-    tags = forms.CharField()
+    title = forms.CharField(max_length=100,widget=forms.TextInput(attrs={'class':'textInput'}))
+    body = forms.CharField(widget=forms.Textarea())
+    category = forms.CharField(max_length=30,widget=forms.TextInput(attrs={'class':'textInput'}))
+    tags = forms.CharField(widget=forms.TextInput(attrs={'class':'textInput'}))
 
     def save(self, post=None, commit=True):
         data = self.cleaned_data
