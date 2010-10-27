@@ -3,12 +3,15 @@ from django import forms
 
 
 class PageForm(forms.Form):
-    name = forms.CharField(max_length=100)
-    description = forms.CharField(max_length=300, required=False)
+    name = forms.CharField(max_length=100,widget=forms.TextInput(attrs={'class':'textInput'}))
+    description = forms.CharField(max_length=300, required=False,widget=forms.TextInput(attrs={'class':'textInput'}))
     body = forms.CharField(widget=forms.Textarea)
-    template = forms.CharField(max_length=30)
-    navbar = forms.BooleanField(required=False)
-    publish = forms.BooleanField()
+    template = forms.CharField(max_length=30,widget=forms.TextInput(attrs={'class':'textInput'}))
+    navbar = forms.BooleanField(required=False, widget=forms.Select(choices=(('True','True'),
+                                                                             ('False', 'False'))))
+    publish = forms.BooleanField(widget=forms.Select(choices=(('Published','Publish Now'),
+                                                              ('Private','Private'),
+                                                              ('Draft','Draft'))))
 
     def save(self, page=None, commit=True):
         data = self.cleaned_data

@@ -2,6 +2,7 @@
 
 {% block main_content %}
 {% if page %}
+	<h3>{{ page.name }}</h3>
 	{% autoescape off %}
 	{{ page.body_html }}
 	{% endautoescape %}

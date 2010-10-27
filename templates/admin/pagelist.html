@@ -17,7 +17,8 @@
 		{% if pages.count > 0 %}
 			{% for p in pages %}
 				<tr>
-					<td><a href="{{ p.get_edit_url }}">Edit</a> | <a href="{{ p.get_delete_url }}">Remove</a></td>
+					<td><a href="{{ p.get_delete_url }}"><img src="/resources/img/small/trash.png" border="0" title="Delete"></a> |
+						<a href="{{ p.get_edit_url }}"><img src="/resources/img/small/edit.png" border="0" title="Edit"></a></td>
 					<td>{{ p.name }}</td>
 					<td>{% if p.publish %} Yes {% else %} No {% endif %}</td>
 					<td>{{ p.template }}</td>
@@ -29,4 +30,6 @@
 		{% endif %}
 		</tbody>
 	</table>
+	{% if paging.prev %}<a href="/pages/?page={{ paging.prev }}">Prev Posts</a> &nbsp;&nbsp;{% endif %}
+	{% if paging.next %}<a href="/pages/?page={{ paging.next }}">More Post</a>{% endif %}
 {% endblock %}

@@ -121,8 +121,8 @@ INSTALLED_APPS = (
 
 
 # APP SETTINGS
-PAGESIZE = 5
 BLOG_TITLE = 'Hudarsono\'s Blog'
 SITE_URL = 'localhost'
 AUTHOR = 'Hudarsono'
 AUTHOR_EMAIL = 'hudarsono@gmail.com'
+PAGESIZE = 10

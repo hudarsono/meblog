@@ -42,6 +42,8 @@ urlpatterns = patterns('',
     (r'^page/edit/([-\w]+)', 'pages.views.editPage'),
     (r'^page/delete/([-\w]+)', 'pages.views.delPage'),
 
+    (r'^media/$', 'media.views.listMedia'),
+    (r'^media/delete/([-\w]+)', 'media.views.delMedia'),
 	(r'^media/upload/', 'media.views.upload'),
     (r'^media/download/([-\w]+)', 'media.views.download'),
 

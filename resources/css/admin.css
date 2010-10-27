@@ -74,7 +74,7 @@ div.content .left-form{
 	-webkit-border-radius:6px;
 	border-radius:6px;
 	width:635px;
-	height:500px;
+	height:550px;
 	float:left;
 }
 div.right-form{
@@ -106,7 +106,7 @@ td.left{
 	text-align:left;
 }
 
-table .menu{width:150px;}
+table .menu{width:100px;}
 table .date{width:150px;}
 
 tr.odd td {
