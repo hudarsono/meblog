@@ -27,6 +27,7 @@ urlpatterns = patterns('',
 
 	(r'^$', 'posts.views.stream'),
 
+    (r'^admin/$', 'posts.views.listPost'),
 	(r'^posts/$', 'posts.views.listPost'),
     (r'^posts/category/([-\w]+)$', 'posts.views.listPostByCategory'),
     (r'^posts/tag/([-\w]+)$', 'posts.views.listPostByTag'),

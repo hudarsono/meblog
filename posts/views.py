@@ -1,19 +1,34 @@
-# Create your views here.
-from posts import models
-import postform
+#    Copyright 2010 Hudarsono <http://hudarsono.me>
+#
+#    This file is part of MeBlog.
+#
+#    MeBlog is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    MeBlog is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with MeBlog.  If not, see <http://www.gnu.org/licenses/>.
+
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect, Http404
-
 from django.conf import settings
 
 from google.appengine.api import memcache
 
-from gaesessions import get_current_session
-
+from posts import models
+import postform
+from utilities.auth_helper import login_required
 
 PAGESIZE = settings.PAGESIZE
 
+@login_required
 def listPost(request):
     if request.GET.get('page'):
         page = int(request.GET.get('page'))
@@ -225,12 +240,16 @@ def showPost(request, year, month, day, key_name):
     raise Http404
 
 
+@login_required
 def newPost(request):
   postForm = None
   if request.method == 'POST':
     newPost = postform.PostForm(request.POST)
     if newPost.is_valid():
       newPost.save()
+
+      #flush memcache
+      memcache.flush_all()
       return HttpResponseRedirect('/posts/')
     else:
       postForm = postform.PostForm(request.POST)
@@ -242,6 +261,8 @@ def newPost(request):
                           'postForm':postForm})
 
 
+
+@login_required
 def editPost(request, year, month, day, key_name):
   if request.method == 'POST':
     post = models.Post.get_by_key_name(key_name)
@@ -249,6 +270,7 @@ def editPost(request, year, month, day, key_name):
       form = postform.PostForm(request.POST)
       if form.is_valid():
         form.save(post)
+        memcache.flush_all()
     return HttpResponseRedirect('/posts/')
 
   if request.method == 'GET':
@@ -264,8 +286,13 @@ def editPost(request, year, month, day, key_name):
                              'action':post.get_edit_url(),})
 
 
+
+@login_required
 def delPost(request, year, month, day, key_name):
   post = models.Post.get_by_key_name(key_name)
   if post:
     post.delete()
+
+    # refresh memcache
+    memcache.flush_all()
   return HttpResponseRedirect('/posts/')
