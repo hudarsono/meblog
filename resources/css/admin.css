@@ -165,6 +165,8 @@ form input.submit{
 	border:1px solid #dedede;
 	margin-top:15px;
 }
+
+
 form input.submit:hover{
 	cursor: pointer;
 	background-color: #20368B;
@@ -175,6 +177,20 @@ form input.submit:active{
 	top:1px;
 }
 
+form input.cancel{
+	background-color: #E85163;
+	float:right;
+	margin-right:70px;
+}
+
+form input.cancel:hover{
+	background-color: #F2021A;
+}
+
+
+form input.cancel:active{
+	background-color: #69030F;
+}
 
 form ul.errorlist{
 	color:red;
