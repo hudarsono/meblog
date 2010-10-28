@@ -1,3 +1,20 @@
+#    Copyright 2010 Hudarsono <http://hudarsono.me>
+#
+#    This file is part of MeBlog.
+#
+#    MeBlog is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    MeBlog is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with MeBlog.  If not, see <http://www.gnu.org/licenses/>.
+
 # Django module
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect, Http404
@@ -8,6 +25,7 @@ from django.conf import settings
 from pages import models
 from pageform import PageForm
 from contactform import ContactForm
+from utilities.auth_helper import login_required
 
 # Appengine module
 from google.appengine.api import memcache
@@ -24,6 +42,7 @@ def render(request, name):
         raise Http404
 
 
+@login_required
 def listPages(request):
     if request.GET.get('page'):
         page = int(request.GET.get('page'))
@@ -52,12 +71,14 @@ def listPages(request):
                                                       'paging':paging})
 
 
+@login_required
 def newPage(request):
     pageForm = None
     if request.method == 'POST':
         newPage = PageForm(request.POST)
         if newPage.is_valid():
             newPage.save()
+            memcache.flush_all()
             return HttpResponseRedirect('/pages/')
         else:
             pageForm = PageForm(request.POST)
@@ -69,6 +90,7 @@ def newPage(request):
                                                      'pageForm':pageForm})
 
 
+@login_required
 def editPage(request, key_name):
     pageForm = None
     if request.method == 'POST':
@@ -76,6 +98,7 @@ def editPage(request, key_name):
         page = page = models.Page.get_by_key_name(key_name.replace('-',' '))
         if form.is_valid():
             form.save(page)
+            memcache.flush_all()
             return HttpResponseRedirect('/pages/')
         else:
             pageForm = PageForm(request.POST)
@@ -91,10 +114,12 @@ def editPage(request, key_name):
     return render_to_response('admin/newpage.html', {'pageForm':pageForm,
                                                      'action':page.get_edit_url()})
 
+@login_required
 def delPage(request, key_name):
     page = models.Page.get_by_key_name(key_name.replace('-',' '))
     if page:
         page.delete()
+        memcache.flush_all()
     return HttpResponseRedirect('/pages/')
 
 

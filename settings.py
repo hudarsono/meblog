@@ -114,6 +114,7 @@ INSTALLED_APPS = (
      'markdown',
      'pygments',
      'gaesessions',
+     'utilities',
 #    'django.contrib.auth',
 #    'django.contrib.contenttypes',
 #    'django.contrib.sessions',
