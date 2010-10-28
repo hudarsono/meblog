@@ -1,7 +1,6 @@
 import cgi
 from google.appengine.ext import blobstore
 from django.http import HttpResponse
-import logging
 
 
 def get_uploads(request, field_name=None, populate_post=False):
@@ -59,7 +58,6 @@ def send_blob(request, blob_key_or_info, content_type=None, save_as=None):
     """
 
     CONTENT_DISPOSITION_FORMAT = 'attachment; filename="%s"'
-    logging.info(blob_key_or_info)
     if isinstance(blob_key_or_info, blobstore.BlobInfo):
       blob_key = blob_key_or_info.key()
       blob_info = blob_key_or_info
