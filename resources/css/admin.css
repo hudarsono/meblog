@@ -197,3 +197,9 @@ form ul.errorlist{
 	list-style:none;
 	display:inline;
 }
+
+.footer, .footer a{
+	margin-top:10px;
+	color:white;
+	text-shadow:none;
+}

@@ -17,7 +17,7 @@
 	{% if page.navbar %}
 		<div id="main-content" class="grid_9">
 			<div class="content">
-				{% block main_content %}{% endblock %}
+				{% block content %}{% endblock %}
 			</div>
 		</div>
 
@@ -27,7 +27,7 @@
 	{% else %}
 		<div id="main-content" class="grid_12">
 			<div class="content">
-				{% block main_content %}{% endblock %}
+				{% block content_wide %}{% endblock %}
 			</div>
 		</div>
 	{% endif %}

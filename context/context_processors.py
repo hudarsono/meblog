@@ -1,4 +1,4 @@
-#    Copyright 2010 Hudarsono <http://hudarsono.me>
+#    Copyright 2010 Hudarsono <http://blog.hudarsono.me>
 #
 #    This file is part of MeBlog.
 #
@@ -18,8 +18,10 @@
 
 
 # this is a context processor for template
+import urllib
 from pages.models import Page
 from google.appengine.api import memcache
+from django.conf import settings
 
 def pages(request):
     if memcache.get('context_pages'):
@@ -35,5 +37,31 @@ def pages(request):
                 context_pages.append({'name':page.name,
                                       'url':page.get_absolute_url()})
             memcache.set('context_pages', context_pages)
+            
+    if settings.BLOG_TITLE != '':
+        blog_title = settings.BLOG_TITLE
 
-    return {'context_pages':context_pages}
+    if settings.DISQUSS == 'True':
+        discuss=True
+    else:
+        discuss=False
+
+    if settings.ANALYTICS == 'True':
+        ga=True
+    else:
+        ga=False
+
+    return {'context_pages':context_pages, 'blog_title':blog_title, 'discuss':discuss, 'ga':ga}
+    
+def daily_quote(request):
+    if memcache.get('today_quote'):
+        todayquote = memcache.get('today_quote')
+    else:
+        f = urllib.urlopen('http://www.iheartquotes.com/api/v1/random?max_lines=1')
+        quotelines = f.readlines()
+        #remove last line
+        trimmedlines = quotelines[:-1]
+        todayquote = ''.join(trimmedlines)
+        memcache.set('today_quote', todayquote, 86400)
+        
+    return {'todayquote':todayquote}

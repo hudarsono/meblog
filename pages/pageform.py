@@ -1,4 +1,4 @@
-#    Copyright 2010 Hudarsono <http://hudarsono.me>
+#    Copyright 2010 Hudarsono <http://blog.hudarsono.me>
 #
 #    This file is part of MeBlog.
 #
@@ -20,6 +20,7 @@ from django import forms
 
 
 class PageForm(forms.Form):
+    key = forms.CharField(required=False,widget=forms.HiddenInput())
     name = forms.CharField(max_length=100,widget=forms.TextInput(attrs={'class':'textInput'}))
     description = forms.CharField(max_length=300, required=False,widget=forms.TextInput(attrs={'class':'textInput'}))
     body = forms.CharField(widget=forms.Textarea)
@@ -40,3 +41,18 @@ class PageForm(forms.Form):
         page.publish = data['publish']
         if commit: page.put()
         return page
+     
+    
+    # prevent the same page 's name
+    def clean_name(self):
+        name = self.cleaned_data['name']
+        query = models.Page.all(keys_only=True)
+        query.filter('name = ', name)
+        
+        page = query.get()
+        
+        if page and (not self.cleaned_data['key']):
+            raise forms.ValidationError('Page name "%s" was already used before' % name)
+           
+        return name
+

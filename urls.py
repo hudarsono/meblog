@@ -25,7 +25,7 @@ urlpatterns = patterns('',
 #     (r'^admin/', include('django.contrib.admin.urls')),
 
 	# serve static resources
-	(r'^resources/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT }),
+	#(r'^resources/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT }),
 
 	(r'^$', 'posts.views.stream'),
 
@@ -44,6 +44,7 @@ urlpatterns = patterns('',
     (r'^page/delete/([-\w]+)', 'pages.views.delPage'),
 
     (r'^media/$', 'media.views.listMedia'),
+    (r'^media/serve/([-\w]+)', 'media.views.serve'),
     (r'^media/delete/([-\w]+)', 'media.views.delMedia'),
 	(r'^media/upload/', 'media.views.upload'),
     (r'^media/download/([-\w]+)', 'media.views.download'),

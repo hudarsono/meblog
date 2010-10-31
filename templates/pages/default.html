@@ -1,15 +1,29 @@
 {% extends "pages/base.html" %}
 
-{% block main_content %}
-{% if page %}
-	{% autoescape off %}
-	{{ page.body_html }}
-	{% endautoescape %}
-{% else %}
-	<h3>Sorry, this page is not ready yet. Please come back soon.</h3>
-{% endif %}
-{% endblock %}
 
 {% if page.navbar %}
+	{% block content %}
+		{% if page %}
+			<h3>{{ page.name }}</h3>
+			{% autoescape off %}
+			{{ page.body_html }}
+			{% endautoescape %}
+		{% else %}
+			<h3>Sorry, this page is not ready yet. Please come back soon.</h3>
+		{% endif %}
+	{% endblock %}
+
 	{% block side_menu %}{% endblock %}
+
+{% else %}
+	{% block content_wide %}
+		{% if page %}
+			<h3>{{ page.name }}</h3>
+			{% autoescape off %}
+			{{ page.body_html }}
+			{% endautoescape %}
+		{% else %}
+			<h3>Sorry, this page is not ready yet. Please come back soon.</h3>
+		{% endif %}
+	{% endblock %}
 {% endif %}

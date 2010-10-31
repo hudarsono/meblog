@@ -4,7 +4,7 @@
 {% if posts %}
 {% for p in posts %}
 	<h3 class="title"><a href="{{ p.get_absolute_url }}">{{ p.title}}</a></h3>
-	<span class="date">Writen at {{ p.pub_date.year }}-{{ p.pub_date.month }}-{{ p.pub_date.day }}</span>
+	<span class="date">Writen at {{ p.pub_date.year }}-{{ p.pub_date.month }}-{{ p.pub_date.day }} by {{ p.author.nickname }}</span>
 	<p>
 		{% autoescape off %}
 		{{ p.trunc_body }}
@@ -24,6 +24,16 @@
 
 
 {% block side_menu %}
+<div class="widget">
+<span class="side-title">Subscribe</span>
+<div class="nav-cat">
+	<ul>
+		<li><a href="/feeds/latest/"><img src="/resources/img/small/rssfeed.jpg"</a></li>
+	</ul>
+</div>
+</div>
+
+
 <div class="widget">
 <span class="side-title">Categories</span>
 <div class="nav-cat">

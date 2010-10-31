@@ -1,4 +1,4 @@
-#    Copyright 2010 Hudarsono <http://hudarsono.me>
+#    Copyright 2010 Hudarsono <http://blog.hudarsono.me>
 #
 #    This file is part of MeBlog.
 #
@@ -38,25 +38,16 @@ class Page(db.Model):
         return "/%s" % self.name
 
     def get_delete_url(self):
-        return "/page/delete/%s" % (self.name)
+        return "/page/delete/%s" % (self.key())
 
     def get_edit_url(self):
-        return "/page/edit/%s" % (self.name)
+        return "/page/edit/%s" % (self.key())
 
     def put(self):
-        self.check_double_name()
         self.populate_html()
         key = super(Page, self).put()
         return key
 
-    def check_double_name(self):
-        query = Page.all(keys_only=True)
-        query.filter('name = ', self.name)
-
-        page = query.get()
-
-        if page and (not self.is_saved() or self.key() != page):
-            raise PageConstraintViolation(self.name)
 
     def populate_html(self):
         md = markdown.Markdown(extensions=['codehilite'])
@@ -64,6 +55,3 @@ class Page(db.Model):
         if self.body:
             self.body_html = md.convert(self.body)
 
-class PageConstraintViolation(Exception):
-    def __init__(self, name):
-        super(PageConstraintViolation, self).__init__("Page with name '%s' was already used before" % name )

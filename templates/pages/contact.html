@@ -10,13 +10,15 @@
 			</div>
 			<div class="ctrlHolder">
 				<label for="id_email" style="display:block">Email {{ form.email.errors }}</label>
-				<input id="id_email" class="textInput" type="text" size="50" name="name" />
+				<input id="id_email" class="textInput" type="text" size="50" name="email" />
 			</div>
 			<div class="ctrlHolder">
 				<label for="id_message" style="display:block">Message {{ form.message.errors }}</label>
-				<textarea id="id_message" name="body" cols="40" rows="18"></textarea>
+				<textarea id="id_message" name="message" cols="40" rows="18"></textarea>
 			</div>
-			{% if msg %}<span class="msg">{{ msg }}</span>{% endif %}
+			<div class="ctrlHolder">
+				{% if msg %}<span class="msg"><strong>{{ msg }}</strong></span>{% endif %}
+			</div>
 
 			<div class="buttonHolder"><input class="submit" type="submit" value="Send" /></div>
 		</fieldset>

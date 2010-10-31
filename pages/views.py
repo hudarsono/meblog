@@ -1,4 +1,4 @@
-#    Copyright 2010 Hudarsono <http://hudarsono.me>
+#    Copyright 2010 Hudarsono <http://blog.hudarsono.me>
 #
 #    This file is part of MeBlog.
 #
@@ -91,11 +91,11 @@ def newPage(request):
 
 
 @login_required
-def editPage(request, key_name):
+def editPage(request, key):
     pageForm = None
     if request.method == 'POST':
         form = PageForm(request.POST)
-        page = page = models.Page.get_by_key_name(key_name.replace('-',' '))
+        page = page = models.Page.get(key)
         if form.is_valid():
             form.save(page)
             memcache.flush_all()
@@ -104,9 +104,10 @@ def editPage(request, key_name):
             pageForm = PageForm(request.POST)
 
     if pageForm is None:
-        page = models.Page.get_by_key_name(key_name.replace('-',' '))
+        page = models.Page.get(key)
         if page:
-            pageForm = PageForm(initial={'name':page.name,
+            pageForm = PageForm(initial={'key':page.key(),
+                                         'name':page.name,
                                          'description':page.description,
                                          'body':page.body,
                                          'template':page.template,
@@ -115,8 +116,8 @@ def editPage(request, key_name):
                                                      'action':page.get_edit_url()})
 
 @login_required
-def delPage(request, key_name):
-    page = models.Page.get_by_key_name(key_name.replace('-',' '))
+def delPage(request, key):
+    page = models.Page.get(key)
     if page:
         page.delete()
         memcache.flush_all()
@@ -131,12 +132,13 @@ def contact(request):
         if newMessage.is_valid():
             data = newMessage.cleaned_data
             #send message
-            mail.send_mail(sender="hudarsono.appspot.com <contact@hudarsono.appspot.com>",
-                              to="Hudarsono <hudarsono@gmail.com>",
+            mail.send_mail(sender='AppSpot <'+settings.AUTHOR_EMAIL+'>',
+                              to=settings.AUTHOR+' <'+settings.AUTHOR_EMAIL+'>',
                               subject="New Message from "+data['name'],
-                              body="Sender Email : "+data['email']+"\n Message : "+data['message'])
+                              body="Sender Email : "+data['email']+"\n\nMessage :\n"+data['message'])
 
             msg = 'Thanks for your message, will get back to you soon.'
+
         else:
             form = ContactForm(request.POST)
 
