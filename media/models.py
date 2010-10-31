@@ -1,4 +1,4 @@
-#    Copyright 2010 Hudarsono <http://hudarsono.me>
+#    Copyright 2010 Hudarsono <http://blog.hudarsono.me>
 #
 #    This file is part of MeBlog.
 #
@@ -15,22 +15,32 @@
 #    You should have received a copy of the GNU General Public License
 #    along with MeBlog.  If not, see <http://www.gnu.org/licenses/>.
 
+
+import urllib
+import logging
+
 from appengine_django.models import BaseModel
 from google.appengine.ext import db
 from google.appengine.ext import blobstore
 
+from django.conf import settings
+
 # Create your models here.
 class Media(db.Model):
-	title = db.StringProperty()
-	created = db.DateTimeProperty(auto_now_add=True)
-	media = blobstore.BlobReferenceProperty()
-	filename = db.StringProperty()
-	filesize = db.IntegerProperty()
-	type = db.StringProperty()
+    title = db.StringProperty()
+    created = db.DateTimeProperty(auto_now_add=True)
+    media = blobstore.BlobReferenceProperty()
+    filename = db.StringProperty()
+    filesize = db.IntegerProperty()
+    type = db.StringProperty()
 
 
-	def get_absolute_url(self):
-		return '/media/item/%s' % self.media.key()
+    def get_absolute_url(self):
+        #domain = Site.objects.get_current()
+        return settings.SITE_URL+'/media/serve/%s' % self.key()
 
-	def get_delete_url(self):
-		return '/media/delete/%s' % self.media.key()
+    def get_download_url(self):
+        return '/media/download/%s' % self.key()
+        
+    def get_delete_url(self):
+        return '/media/delete/%s' % self.key()

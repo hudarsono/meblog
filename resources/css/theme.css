@@ -3,9 +3,14 @@ body{
 	text-shadow: 0px 1px 1px #fff;
 }
 
+header hgroup, hgroup a{
+    color:white;
+    text-shadow:none;
+    text-decoration:none;
+}
 
 #nav {
-	margin-top:100px;
+	margin-top:0px;
 }
 
 #nav ul {
@@ -84,11 +89,11 @@ body{
 
 #side-menu .nav-cat{
 	padding: 3px;
-	margin-top:8px;
 }
 
 #side-menu .nav-cat ul{
 	list-style:none;
+	margin-bottom:10px;
 }
 
 #side-menu .nav-cat li{
@@ -193,3 +198,32 @@ form ul.errorlist{
 	display:inline;
 	margin-left:0;
 }
+
+.footer, .footer a{
+	margin-top:10px;
+	color:white;
+	text-shadow:none;
+}
+
+span.msg{
+	font-weight:bold;
+	font-size:12px;
+}
+
+
+/* Css Blockquote */
+blockquote p{
+  font: 1.2em/1.6em Georgia, "Times New Roman", Times, serif;
+  width: 400px;
+  background: url(/resources/img/small/close_quote.gif) no-repeat right bottom;
+  padding-left: 18px;
+  text-indent: -18px;
+  text-align:center;
+}
+
+blockquote p:first-letter {
+  background: url(/resources/img/small/open_quote.gif) no-repeat left top;
+  padding-left: 18px;
+  font: italic 1.4em Georgia, "Times New Roman", Times, serif;
+}
+

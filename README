@@ -1,0 +1,46 @@
+What is MeBlog?
+============================================================
+
+MeBlog is a blogging system which aim to let people easly
+customize the theme, widget, and plugin. This is work in
+progress. But at the curent release, main features for blogging
+already provided.
+
+
+
+Requirement
+============================================================
+
+MeBlog designed to run in Google AppEngine. It uses Django v1.2.3
+framework and django-appengine-helper.
+Media upload already supported, AppEngine need billing in order to
+enable media upload, but we still can set the daily budget.
+
+
+
+How To Install
+=============================================================
+
+Assuming that appengine account already created, and application
+name already registered in appengine.Follow simple steps
+below to install :
+-> Install AppEngine SDK
+   Download at : http://code.google.com/appengine/downloads.html
+
+-> Edit meblog/app.yaml
+   Change application name from 'meblog' to your registered name
+   in AppEngine
+
+-> (Optional) To have comment system on the blog, MeBlog can
+   integrate with Disquss. http://disqus.com
+   - copy first part of javascript to meblog/templates/front/post.html
+   - copy second part (comment count) to meblog/templates/front/footer.html
+   - set discuss to true in meblog/settings.py
+
+-> (Optional) To have web analytics, use Google Analytics.
+    - Copy javascript from Google Analytics to meblog/templates/front/footer.html
+    - set analytics to true in meblog/settings.py
+
+-> UPLOAD!.  #appcfg.py upload meblog
+-> Done!
+

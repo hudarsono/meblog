@@ -1,4 +1,4 @@
-#    Copyright 2010 Hudarsono <http://hudarsono.me>
+#    Copyright 2010 Hudarsono <http://blog.hudarsono.me>
 #
 #    This file is part of MeBlog.
 #

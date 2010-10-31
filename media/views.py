@@ -1,4 +1,4 @@
-#    Copyright 2010 Hudarsono <http://hudarsono.me>
+#    Copyright 2010 Hudarsono <http://blog.hudarsono.me>
 #
 #    This file is part of MeBlog.
 #
@@ -29,7 +29,7 @@ from google.appengine.api import memcache
 
 from media import models
 from fileform import FileForm
-from utilities.blob_helper import *
+from utilities import blob_helper
 from utilities.auth_helper import login_required
 
 
@@ -85,13 +85,13 @@ def upload(request):
         form = FileForm(request.POST)
         if form.is_valid() and len(blob_info) == 1:
             media_item = models.Media(title=form.cleaned_data['title'],
-                                   media=blob_info[0].key(),
+                                   media=blob_info[0],
                                    filename = blob_info[0].filename,
                                    filesize = blob_info[0].size,
                                    type = blob_info[0].content_type)
             media_item.put()
             memcache.flush_all()
-            return HttpResponseRedirect('/posts/')
+            return HttpResponseRedirect('/media/')
 
         if len(media_blobs) == 0:
             request.session['upload_error'] = "Media file is required"
@@ -104,7 +104,10 @@ def upload(request):
 													'upload_error': request.session.pop('upload_error', None),
 													'form': form})
 
+def serve(request, key):
+    media = models.Media.get(key)
+    return blob_helper.send_blob(request, media.media, save_as=False) 
+                                                    
 def download(request, key):
-    blob_key = str(urllib.unquote(key))
-    blob = blobstore.BlobInfo.get(blob_key)
-    return blob_helper.send_blob(request, blob, save_as=True)
+    media = models.Media.get(key)
+    return blob_helper.send_blob(request, media.media, save_as=True)

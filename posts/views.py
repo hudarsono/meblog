@@ -1,4 +1,4 @@
-#    Copyright 2010 Hudarsono <http://hudarsono.me>
+#    Copyright 2010 Hudarsono <http://blog.hudarsono.me>
 #
 #    This file is part of MeBlog.
 #
@@ -74,11 +74,13 @@ def get_tag_cat_list():
       cat_list[p.category] = 1
 
   sorted_cat_list = []
-  for cat in sorted(cat_list):
-    sorted_cat_list.append({'category': cat,
-                  'count':cat_list[cat],
-                  'url': '/posts/category/%s' % cat.replace(' ','-'),
-                  })
+  if cat_list:
+      for cat in sorted(cat_list):
+        sorted_cat_list.append({'category': cat,
+                      'count':cat_list[cat],
+                      'url': '/posts/category/%s' % cat.replace(' ','-'),
+                      })
+
 
   # get all tags
   tag_list = {}
@@ -90,11 +92,13 @@ def get_tag_cat_list():
         tag_list[tag] = 1
 
   sorted_tag_list = []
-  for tag in sorted(tag_list.iterkeys()):
-    sorted_tag_list.append({'tag': tag,
-                                'count': tag_list[tag],
-                                'url': '/posts/tag/%s' % (tag),
-                               })
+
+  if tag_list:
+      for tag in sorted(tag_list.iterkeys()):
+        sorted_tag_list.append({'tag': tag,
+                                    'count': tag_list[tag],
+                                    'url': '/posts/tag/%s' % (tag),
+                                   })
 
   cat_tag  = {'tag_list': sorted_tag_list,
           'cat_list': sorted_cat_list}
@@ -264,9 +268,9 @@ def newPost(request):
 
 
 @login_required
-def editPost(request, year, month, day, key_name):
+def editPost(request, year, month, day, key):
   if request.method == 'POST':
-    post = models.Post.get_by_key_name(key_name)
+    post = models.Post.get(key)
     if post:
       form = postform.PostForm(request.POST)
       if form.is_valid():
@@ -275,11 +279,8 @@ def editPost(request, year, month, day, key_name):
     return HttpResponseRedirect('/posts/')
 
   if request.method == 'GET':
-    post = models.Post.get_by_key_name(key_name)
-    import logging
-    logging.info(post.title)
-    logging.info(post.body)
-    editPostForm = postform.PostForm(initial={
+    post = models.Post.get(key)
+    editPostForm = postform.PostForm(initial={'key':post.key(),
                           'title': post.title,
                           'body': post.body,
                           'category': post.category,
@@ -292,8 +293,8 @@ def editPost(request, year, month, day, key_name):
 
 
 @login_required
-def delPost(request, year, month, day, key_name):
-  post = models.Post.get_by_key_name(key_name)
+def delPost(request, year, month, day, key):
+  post = models.Post.get(key)
   if post:
     post.delete()
 

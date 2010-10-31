@@ -1,4 +1,4 @@
-#    Copyright 2010 Hudarsono <http://hudarsono.me>
+#    Copyright 2010 Hudarsono <http://blog.hudarsono.me>
 #
 #    This file is part of MeBlog.
 #
@@ -20,6 +20,7 @@ from django import forms
 
 
 class PostForm(forms.Form):
+    key = forms.CharField(required=False, widget=forms.HiddenInput())
     title = forms.CharField(max_length=100,widget=forms.TextInput(attrs={'class':'textInput'}))
     body = forms.CharField(widget=forms.Textarea())
     category = forms.CharField(max_length=30,widget=forms.TextInput(attrs={'class':'textInput'}))
@@ -34,3 +35,16 @@ class PostForm(forms.Form):
         post.tags = data['tags'].split()
         if commit: post.put()
         return post
+        
+    
+    def clean_title(self):
+        title = self.cleaned_data['title']
+        query = models.Post.all(keys_only=True)
+        query.filter('title = ', title)
+
+        post = query.get()
+
+        if post and not self.cleaned_data['key']:
+            raise forms.ValidationError('Title "%s" already used before.' % title)
+
+        return title

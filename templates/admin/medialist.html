@@ -8,8 +8,7 @@
 				<th class="first menu">Action</th>
 				<th>Title</th>
 				<th>Filename</th>
-				<th>Type</th>
-				<th>Size</th>
+				<th>Url</th>
 				<th class="last date">Created</th>
 			</tr>
 		</thead>
@@ -17,11 +16,11 @@
 		{% if list.count > 0 %}
 			{% for l in list %}
 				<tr>
-					<td><a href="{{ l.get_delete_url }}"><img src="/resources/img/small/trash.png" border="0" title="Delete"></a></td>
+					<td><a href="{{ l.get_delete_url }}"><img src="/resources/img/small/trash.png" border="0" title="Delete"></a> | 
+                        <a href="{{ l.get_download_url }}"><img src="/resources/img/small/download.png" border="0" title="Download"></a></td>
 					<td>{{ l.title }}</td>
 					<td>{{ l.filename }}</td>
-					<td>{{ l.type }}</td>
-					<td>{{ l.filesize }}</td>
+					<td>{{ l.get_absolute_url }}</td>
 					<td>{{ l.created.year }}-{{l.created.month }}-{{ l.created.day }}</td>
 				</tr>
 			{% endfor %}

@@ -16,7 +16,7 @@
 
 import os
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ROOT_PATH = os.path.dirname(__file__)
@@ -83,6 +83,7 @@ TEMPLATE_LOADERS = (
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'google.appengine.ext.appstats.recording.AppStatsDjangoMiddleware',
 #    'django.contrib.auth.middleware.AuthenticationMiddleware',
 #    'django.middleware.doc.XViewMiddleware',
 )
@@ -94,6 +95,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
     # context processor to get all pages
     'context.context_processors.pages',
+    
+    # get daily quote 
+    'context.context_processors.daily_quote',
 
 #    'django.core.context_processors.media',  # 0.97 only.
 #    'django.core.context_processors.request',
@@ -114,16 +118,17 @@ INSTALLED_APPS = (
      'markdown',
      'pygments',
      'utilities',
-#    'django.contrib.auth',
-#    'django.contrib.contenttypes',
-#    'django.contrib.sessions',
-#    'django.contrib.sites',
 )
 
-
 # APP SETTINGS
+APPNAME = 'hudarsono'
 BLOG_TITLE = 'Hudarsono\'s Blog'
-SITE_URL = 'localhost'
+SITE_URL = 'http://hudarsono.appspot.com'
 AUTHOR = 'Hudarsono'
 AUTHOR_EMAIL = 'hudarsono@gmail.com'
 PAGESIZE = 10
+
+# Extension
+DISQUSS = 'True'      #Disquss is a comment system for blog.  http://disqus.com
+ANALYTICS = 'True'
+
