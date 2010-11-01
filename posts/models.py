@@ -22,6 +22,7 @@ from google.appengine.api import users
 # Create your models here.
 import datetime
 import markdown
+import re
 
 class Post(db.Model):
     title = db.StringProperty()
@@ -51,10 +52,13 @@ class Post(db.Model):
                                                    self.key())
 
     def trunc_body(self):
-        if len(self.body) > 500:
-            return self.body[:500].rsplit(' ', 1)[0]+'...'+'<a href="'+self.get_absolute_url()+'">Read More</a>'
+        # remove image
+        p = re.compile(r'<img.*?>')
+        body = p.sub('', self.body_html)
+        if len(body) > 500:
+            return body[:500].rsplit(' ', 1)[0]+'...'+'<a href="'+self.get_absolute_url()+'">Read More</a>'
         else:
-            return self.body
+            return body
 
 
     def put(self):
