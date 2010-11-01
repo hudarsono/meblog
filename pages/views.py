@@ -36,7 +36,11 @@ PAGESIZE = settings.PAGESIZE
 def render(request, name):
     page = models.Page.get_by_key_name(name)
     if page:
-        return render_to_response('pages/'+page.template, {'page':page},
+        if page.template:
+            template = page.template
+        else:
+            template = 'default.html'
+        return render_to_response('pages/'+template, {'page':page},
                                                 context_instance=RequestContext(request))
     else:
         raise Http404
