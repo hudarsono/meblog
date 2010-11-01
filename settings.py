@@ -131,4 +131,5 @@ PAGESIZE = 10                                       # This is how many posts wil
 # Extension
 DISQUSS = 'False'      #Disquss is a comment system for blog.  http://disqus.com
 ANALYTICS = 'False'    #Google analytics integration
+FBLIKE = 'False'       #Facebook Like Button. Set this to True will enable fblike automatically on every post. No additional action required.
 
