@@ -11,8 +11,16 @@
 		{% endautoescape %}
 
 	</p>
-	<hr style="color:white">
-	<div class="clear"></div>
+    
+    {% if fblike %}
+    <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="{{ p.get_absolute_url }}" layout="button_count"></fb:like>	
+    {% endif %}
+    
+    {% if discuss %}
+    <a class="comment-link" href="{{ p.get_absolute_url }}#disqus_thread">Comments</a>
+	{% endif %}
+    
+    <div class="clear"></div>
 {% endfor %}
 
 {% if paging.prev %}<a href="/?page={{ paging.prev }}">Prev Posts</a> &nbsp;&nbsp;{% endif %}
