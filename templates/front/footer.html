@@ -1,33 +1,15 @@
 <div class="grid_12 footer">
+    <!-- Thank you for your kindness and support by keep this little line on your blog -->
 	(c)2010 Powered by
-	<a href="http://bitbucket.org/hudarsono/meblog">MeBlog</a>
+	<a href="http://bitbucket.org/hudarsono/meblog">MeBlog</a>    
 </div>
 
 <!-- Disquss -->
 {% if discuss %}
-<script type="text/javascript">
-var disqus_shortname = 'hudarsonosblog';
-(function () {
-  var s = document.createElement('script'); s.async = true;
-  s.src = 'http://disqus.com/forums/hudarsonosblog/count.js';
-  (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-}());
-</script>
+<!-- Put Disquss 'count.js' Script Here. -->
 {% endif %}
 
 <!-- Google Analytics -->
 {% if ga %}
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-6599473-6']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
+<!-- Put Google Analytics Script Here. -->
 {% endif %}

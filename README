@@ -35,11 +35,11 @@ below to install :
    integrate with Disquss. http://disqus.com
    - copy first part of javascript to meblog/templates/front/post.html
    - copy second part (comment count) to meblog/templates/front/footer.html
-   - set discuss to true in meblog/settings.py
+   - set discuss to true in bottom of meblog/settings.py
 
 -> (Optional) To have web analytics, use Google Analytics.
     - Copy javascript from Google Analytics to meblog/templates/front/footer.html
-    - set analytics to true in meblog/settings.py
+    - set analytics to true in bottom of meblog/settings.py
 
 -> UPLOAD!.  #appcfg.py upload meblog
 -> Done!
