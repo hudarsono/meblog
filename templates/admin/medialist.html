@@ -2,6 +2,9 @@
 
 {% block content %}
 	<h3>Media</h3>
+    
+    <a class="tablemenu" href="/media/upload/">New Upload</a>
+    <div class="clear"></div>
 	<table>
 		<thead>
 			<tr>
@@ -13,7 +16,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		{% if list.count > 0 %}
+		{% if list %}
 			{% for l in list %}
 				<tr>
 					<td><a href="{{ l.get_delete_url }}"><img src="/resources/img/small/trash.png" border="0" title="Delete"></a> | 

@@ -3,6 +3,9 @@
 {% block content %}
 
 	<h3>Pages</h3>
+    <a class="tablemenu" href="/page/new/">New Page</a>
+    <div class="clear"></div>
+    
 	<table>
 		<thead>
 			<tr>
@@ -14,7 +17,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		{% if pages.count > 0 %}
+		{% if pages %}
 			{% for p in pages %}
 				<tr>
 					<td><a href="{{ p.get_delete_url }}"><img src="/resources/img/small/trash.png" border="0" title="Delete"></a> |
