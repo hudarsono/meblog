@@ -24,7 +24,7 @@ class PageForm(forms.Form):
     name = forms.CharField(max_length=100,widget=forms.TextInput(attrs={'class':'textInput'}))
     description = forms.CharField(max_length=300, required=False,widget=forms.TextInput(attrs={'class':'textInput'}))
     body = forms.CharField(widget=forms.Textarea)
-    template = forms.CharField(max_length=30,widget=forms.TextInput(attrs={'class':'textInput'}))
+    template = forms.CharField(required=False,max_length=30,widget=forms.TextInput(attrs={'class':'textInput'}))
     navbar = forms.BooleanField(required=False, widget=forms.Select(choices=(('True','True'),
                                                                              ('False', 'False'))))
     publish = forms.BooleanField(widget=forms.Select(choices=(('Published','Publish Now'),
