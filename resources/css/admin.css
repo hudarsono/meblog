@@ -87,6 +87,10 @@ div.right-form{
 	border-radius:6px;
 }
 
+a.tablemenu{
+    margin:0 0 10px;
+}
+
 table{
 	width: 90%;
 	border-collapse:collapse;
@@ -147,8 +151,8 @@ form p input{
 	text-align:left;
 }
 
-form input.submit{
-	width:70px;
+form input.submit, a.tablemenu{
+	width:auto;
 	background-color: #2A378C;
 	display: inline-block;
 	color: #fff;
@@ -167,12 +171,12 @@ form input.submit{
 }
 
 
-form input.submit:hover{
+form input.submit:hover, a.tablemenu:hover{
 	cursor: pointer;
 	background-color: #20368B;
 }
 
-form input.submit:active{
+form input.submit:active, a.tablemenu:active{
 	background-color: #1E3480;
 	top:1px;
 }
