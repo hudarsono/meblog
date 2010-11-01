@@ -121,14 +121,14 @@ INSTALLED_APPS = (
 )
 
 # APP SETTINGS
-APPNAME = 'hudarsono'
-BLOG_TITLE = 'Hudarsono\'s Blog'
-SITE_URL = 'http://hudarsono.appspot.com'
-AUTHOR = 'Hudarsono'
-AUTHOR_EMAIL = 'hudarsono@gmail.com'
-PAGESIZE = 10
+APPNAME = 'your-app-name'                               
+BLOG_TITLE = 'your-blog-title'                      # This will show on header of the blog
+SITE_URL = 'http://your-app-name.appspot.com'       # Put AppEngine URL here
+AUTHOR = 'your-name'                                # Put Your Name
+AUTHOR_EMAIL = 'your-email'                         # Put Your Email
+PAGESIZE = 10                                       # This is how many posts will show on home page
 
 # Extension
-DISQUSS = 'True'      #Disquss is a comment system for blog.  http://disqus.com
-ANALYTICS = 'True'
+DISQUSS = 'False'      #Disquss is a comment system for blog.  http://disqus.com
+ANALYTICS = 'False'    #Google analytics integration
 

@@ -227,3 +227,7 @@ blockquote p:first-letter {
   font: italic 1.4em Georgia, "Times New Roman", Times, serif;
 }
 
+div.content img{
+    width:600px;
+}
+
