@@ -1,6 +1,6 @@
 table.codehilitetable{margin:0 0 0 20px;}
 .codehilitetable td{background-color:#D7F5E1; padding:5px;}
-.codehilite pre { margin-left: 1em; overflow: auto;  width:100%;padding:5px;}
+.codehilite pre { margin-left: 1em; overflow: auto;  width:90%;padding:5px;background-color:E3E6E4;}
 
 .hll { background-color: #ffffcc }
 .c { color: #408080; font-style: italic } /* Comment */

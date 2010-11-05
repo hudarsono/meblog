@@ -32,6 +32,7 @@ class Page(db.Model):
     navbar = db.BooleanProperty()
     publish = db.BooleanProperty()
     created = db.DateTimeProperty(auto_now_add=True)
+    last_update = db.DateTimeProperty(auto_now=True)
     author = db.UserProperty(auto_current_user_add=True)
 
     def get_absolute_url(self):

@@ -1,7 +1,7 @@
 {% extends 'admin/base.html' %}
 
 {% block content %}
-<form class="uniform" method="POST" action="{% if action %}{{ action }}{% else %}/post/new/{% endif %}">
+<form class="uniform" method="POST" action="{% if action %}{{ action }}{% else %}/post/new/{% endif %}">{% csrf_token %}
 {% if postForm.key %}{{ postForm.key }}{% endif %}
 <fieldset>
 <div class="left-form">

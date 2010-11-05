@@ -41,17 +41,22 @@ def pages(request):
     if settings.BLOG_TITLE != '':
         blog_title = settings.BLOG_TITLE
 
-    if settings.DISQUSS == 'True':
-        discuss=True
+    if settings.DISQUS == 'True':
+        disqus=True
     else:
-        discuss=False
+        disqus=False
 
     if settings.ANALYTICS == 'True':
         ga=True
     else:
         ga=False
+    
+    if settings.FBLIKE == 'True':
+        fblike=True
+    else:
+        fblike=False
 
-    return {'context_pages':context_pages, 'blog_title':blog_title, 'discuss':discuss, 'ga':ga}
+    return {'context_pages':context_pages, 'blog_title':blog_title, 'disqus':disqus, 'ga':ga, 'fblike':fblike}
     
 def daily_quote(request):
     if memcache.get('today_quote'):
