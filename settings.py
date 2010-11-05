@@ -84,6 +84,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'google.appengine.ext.appstats.recording.AppStatsDjangoMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
 #    'django.contrib.auth.middleware.AuthenticationMiddleware',
 #    'django.middleware.doc.XViewMiddleware',
 )
@@ -121,15 +122,15 @@ INSTALLED_APPS = (
 )
 
 # APP SETTINGS
-APPNAME = 'your-app-name'                               
-BLOG_TITLE = 'your-blog-title'                      # This will show on header of the blog
-SITE_URL = 'http://your-app-name.appspot.com'       # Put AppEngine URL here
+APPNAME = 'your-appname'                               
+BLOG_TITLE = 'your-blog-name'                      # This will show on header of the blog
+SITE_URL = 'http://appname.appspot.com'       # Put AppEngine URL here
 AUTHOR = 'your-name'                                # Put Your Name
-AUTHOR_EMAIL = 'your-email'                         # Put Your Email
+AUTHOR_EMAIL = 'your-email'                         # Put Your Email, will be used to let user contact you from your blog
 PAGESIZE = 10                                       # This is how many posts will show on home page
 
 # Extension
-DISQUSS = 'False'      #Disquss is a comment system for blog.  http://disqus.com
+DISQUS = 'False'      #Disquss is a comment system for blog.  http://disqus.com
 ANALYTICS = 'False'    #Google analytics integration
 FBLIKE = 'False'       #Facebook Like Button. Set this to True will enable fblike automatically on every post. No additional action required.
 

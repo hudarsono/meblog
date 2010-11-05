@@ -18,8 +18,8 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect, Http404
-
 from django.conf import settings
+from django.core.context_processors import csrf
 
 from google.appengine.api import memcache
 
@@ -77,9 +77,9 @@ def get_tag_cat_list():
   if cat_list:
       for cat in sorted(cat_list):
         sorted_cat_list.append({'category': cat,
-                      'count':cat_list[cat],
-                      'url': '/posts/category/%s' % cat.replace(' ','-'),
-                      })
+                                  'count':cat_list[cat],
+                                  'url': '/posts/category/%s' % cat.replace(' ','-'),
+                                  })
 
 
   # get all tags
@@ -247,6 +247,8 @@ def showPost(request, year, month, day, key_name):
 
 @login_required
 def newPost(request):
+  c = {}
+  c.update(csrf(request))
   postForm = None
   if request.method == 'POST':
     newPost = postform.PostForm(request.POST)
@@ -262,13 +264,16 @@ def newPost(request):
 
   if postForm is None:
     postForm = postform.PostForm()
+
   return render_to_response('admin/newpost.html', {
-                          'postForm':postForm})
+                          'postForm':postForm},context_instance=RequestContext(request))
 
 
 
 @login_required
 def editPost(request, year, month, day, key):
+  c = {}
+  c.update(csrf(request))
   if request.method == 'POST':
     post = models.Post.get(key)
     if post:
@@ -288,7 +293,7 @@ def editPost(request, year, month, day, key):
 
     return render_to_response('admin/newpost.html', {
                              'postForm':editPostForm,
-                             'action':post.get_edit_url(),})
+                             'action':post.get_edit_url()},context_instance=RequestContext(request))
 
 
 

@@ -22,6 +22,7 @@ import logging
 from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.shortcuts import render_to_response
 from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
 
 from google.appengine.ext import blobstore
 from google.appengine.api import memcache
@@ -77,6 +78,7 @@ def delMedia(request, key):
     return HttpResponseRedirect('/media/')
 
 
+@csrf_exempt
 @login_required
 def upload(request):
     form = None
