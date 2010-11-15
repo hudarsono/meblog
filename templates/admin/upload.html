@@ -1,0 +1,19 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+<div style="width:420px">
+	<form action="{{ upload_url }}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+	{% if upload_error %}<span>{{ upload_error }}</span>{% endif %}
+
+	{{ form.as_p }}
+	<p>
+	<label for="fileupload">Upload Media :</label>
+	<input type="file" id="media" name="media"><br>
+	</p>
+	<p>
+	<input class="submit" type="submit" name="submit" value="Upload">
+	<input class="submit cancel" type="button" value="Cancel" onclick="history.go(-1)"/>
+	</p>
+	</form>
+</div>
+{% endblock %}

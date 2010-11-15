@@ -1,0 +1,39 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+	<h3>Media</h3>
+    
+    <a class="tablemenu" href="/media/upload/">New Upload</a>
+    <div class="clear"></div>
+	<table>
+		<thead>
+			<tr>
+				<th class="first menu">Action</th>
+				<th class="medium">Title</th>
+				<th>Filename</th>
+				<th class="big">Url</th>
+				<th class="last date">Created</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% if list %}
+			{% for l in list %}
+				<tr>
+					<td><a href="{{ l.get_delete_url }}"><img src="/resources/img/small/trash.png" border="0" title="Delete"></a> | 
+                        <a href="{{ l.get_download_url }}"><img src="/resources/img/small/download.png" border="0" title="Download"></a></td>
+					<td>{{ l.title }}</td>
+					<td>{{ l.filename }}</td>
+					<td>{{ l.get_absolute_url }}</td>
+					<td>{{ l.created.year }}-{{l.created.month }}-{{ l.created.day }}</td>
+				</tr>
+			{% endfor %}
+		{% else %}
+			<tr>
+				<td colspan="6">No Media File</td>
+			</tr>
+		{% endif %}
+		</tbody>
+	</table>
+	{% if paging.prev %}<a href="/media/?page={{ paging.prev }}">Prev Posts</a> &nbsp;&nbsp;{% endif %}
+	{% if paging.next %}<a href="/media/?page={{ paging.next }}">More Post</a>{% endif %}
+{% endblock %}

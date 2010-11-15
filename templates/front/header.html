@@ -1,0 +1,29 @@
+<header>
+<div class="grid_12">
+	<hgroup>
+		{% if blog_title %}<a href="/"><h1>{{ blog_title }}</h1></a>{% endif %}
+		{% if todayquote %}<blockquote style="float:left"><p>{{ todayquote}}</p></blockquote>{% endif %}
+	</hgroup>
+</div>
+<div class="clear"></div>
+<div class="grid_3">
+	&nbsp;
+</div>
+
+<div class="grid_9">
+	<div id="nav">
+		<ul>
+			<li><a href="/">Home</a></li>
+
+			<!-- interate to show all the pages -->
+			{% if context_pages %}
+				{% for page in context_pages %}
+					<li><a href="{{ page.url }}">{{ page.name }}</a></li>
+				{% endfor %}
+			{% endif %}
+
+			<li><a href="/contact/">Contact</a></li>
+		</ul>
+	</div>
+</div>
+</header>

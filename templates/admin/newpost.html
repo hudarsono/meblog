@@ -1,0 +1,40 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+<form class="uniform" method="POST" action="{% if action %}{{ action }}{% else %}/post/new/{% endif %}">
+{% csrf_token %}
+{% if postForm.key %}{{ postForm.key }}{% endif %}
+<fieldset>
+<div class="left-form">
+			<div class="ctrlHolder">
+				<label for="id_title" style="display:block">Title {{ postForm.title.errors }}</label>
+                {{ postForm.title }}
+				<span class="inlineLabels"><p class="formHint">Max : 100 characters</p></span>
+			</div>
+			<div class="ctrlHolder">
+				<label for="id_body" style="display:block">Body {{ postForm.body.errors }}</label>
+                {{ postForm.body }}
+				<span class="inlineLabels"><p class="formHint">Use markdown to style the text.
+					<a href="http://daringfireball.net/projects/markdown/basics">Please read documentation</a></p></span>
+			</div>
+			<div class="buttonHolder">
+				<input class="submit" type="submit" value="Publish"/>
+				<input class="submit cancel" type="button" value="Cancel" onclick="history.go(-1)"/>
+			</div>
+
+</div>
+<div class="right-form">
+	<div class="ctrlHolder">
+		<label for="id_category" style="display:block">Category {{ postForm.category.errors }}</label>
+        {{ postForm.category }}
+   		<span class="inlineLabels"><p class="formHint">Word or Phrase</p></span>
+	</div>
+	<div class="ctrlHolder">
+		<label for="id_tags" style="display:block">Tags {{ postForm.tags.errors }}</label>
+        {{ postForm.tags }}
+		<span class="inlineLabels"><p class="formHint">Separate by space</p></span>
+	</div>
+</div>
+</fieldset>
+</form>
+{% endblock %}

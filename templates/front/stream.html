@@ -1,0 +1,74 @@
+{% extends 'front/base.html' %}
+
+{% block main_content %}
+{% if posts %}
+{% for p in posts %}
+	<h3 class="title"><a href="{{ p.get_absolute_url }}">{{ p.title}}</a></h3>
+	<span class="date">last updated at {{ p.last_update.year }}-{{ p.last_update.month }}-{{ p.last_update.day }} by {{ p.author.nickname }}</span>
+    <span class="tags">tags: &nbsp;
+        {% for t in p.tags %}
+            <a class="post-tag" href="/posts/tag/{{ t }}">{{ t }}</a>
+        {% endfor %}
+    </span>
+	<p>
+		{% autoescape off %}
+		{{ p.trunc_body }}
+		{% endautoescape %}
+
+	</p>
+    
+    {% if fblike %}
+    <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="{{ p.get_absolute_url }}" layout="button_count"></fb:like>	
+    {% endif %}
+    
+    {% if disqus %}
+    <a class="comment-link" href="{{ p.get_absolute_url }}#disqus_thread">Comments</a>
+	{% endif %}
+    
+    <hr style="color:white">
+    <div class="clear"></div>
+{% endfor %}
+
+{% if paging.prev %}<a href="/?page={{ paging.prev }}">Prev Posts</a> &nbsp;&nbsp;{% endif %}
+{% if paging.next %}<a href="/?page={{ paging.next }}">More Post</a>{% endif %}
+{% else %}
+	<h3>No Post</h3>
+{% endif %}
+{% endblock %}
+
+
+{% block side_menu %}
+<div class="widget">
+<span class="side-title">Subscribe</span>
+<div class="nav-cat">
+	<ul>
+		<li><a href="/feeds/latest/rss"><img src="/resources/img/small/rssfeed.jpg"</a>
+			<a href="/feeds/latest/atom"><img src="/resources/img/small/atomfeed.gif"></a></li>
+	</ul>
+</div>
+</div>
+
+
+<div class="widget">
+<span class="side-title">Categories</span>
+<div class="nav-cat">
+	<ul>
+	{% for cat in categories %}
+		<li>&#187; <a href="{{ cat.url }}">{{ cat.category }}</a>({{ cat.count }})</li>
+	{% endfor %}
+	</ul>
+</div>
+</div>
+<div class="clear"></div>
+
+<div class="widget">
+<span class="side-title">Tags</span>
+<div class="nav-cat">
+	<ul>
+	{% for tag in tags %}
+		<li>&#187; <a href="{{ tag.url }}">{{ tag.tag }}</a>({{ tag.count }})</li>
+	{% endfor %}
+	</ul>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+<html>
+<head>
+<!-- js -->
+
+<link rel="stylesheet" type="text/css" media="all" href="/resources/css/reset.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/resources/css/text.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/resources/css/960.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/resources/css/admin.css" />
+
+<!-- uniform's css -->
+<link rel="stylesheet" href="/resources/css/uni-form.css" type="text/css" />
+<link rel="stylesheet" href="/resources/css/default.uni-form.css" type="text/css" />
+
+</head>
+
+<body>
+<div class="container_12">
+	{% include 'admin/header.html' %}
+
+	<div class="clear" style="height:130"></div>
+
+	<div id-"main-content" class="grid_12">
+		<div class="content">
+		{% block content %}{% endblock %}
+		</div>
+	</div>
+	
+	{% include 'admin/footer.html' %}
+</div>
+</body>
+</html>

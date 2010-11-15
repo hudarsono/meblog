@@ -1,0 +1,270 @@
+body{
+    background-image:url('/resources/img/small/bg.png');
+	text-shadow: 0px 1px 1px #fff;
+}
+
+header hgroup, hgroup a{
+    text-shadow:none;
+    text-decoration:none;
+}
+
+header hgroup a{
+    color:blue;
+}
+
+#nav {
+	margin-top:0px;
+}
+
+#nav ul {
+	list-style: none;
+	margin-bottom: 15px;
+	font-weight: bold;
+	font-size:12px;
+	float:right;
+}
+
+#nav ul li {
+	float: left;
+}
+
+#nav ul a {
+	display: block;
+	padding: 8px;
+	text-align:center;
+	text-decoration: none;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	color:blue;
+	text-shadow: none;
+}
+
+#nav ul a:hover, #nav ul a:active, #nav ul a:focus {
+	background: rgba(255,255,255,0.8);
+	box-shadow: rgba(255,255,255,0.8) 1px 1px 3px;
+	color:#2A378C;
+}
+
+#main-content .content{
+	padding:10px;
+	margin-right:5px;
+	background: rgba(255,255,255,0.7);
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+}
+
+#main-content .title{
+	margin-bottom:5px;
+}
+
+#main-content .title a{
+	text-decoration:none;
+}
+
+#main-content p{
+	margin-top:15px;
+}
+
+#main-content .date{
+	font-weight:bold;
+}
+
+#main-content .tags{
+    float:right;
+    margin: 0 20px;
+    font-weight:bold;
+}
+
+a.comment-link{
+    float:right;
+    margin:0 20px;
+}
+
+a.post-tag{
+    background-color:#E0EAF1;
+    border-bottom:1px solid #3E6D8E;
+    border-right:1px solid #7F9FB6;
+    color:#3E6D8E;
+    font-size:90%;
+    line-height:2.4;
+    margin:2px 2px 2px 0;
+    padding:3px 4px;
+    text-decoration:none;
+    white-space:nowrap;
+    cursor:pointer;
+    text-shadow:none;
+}
+
+a.post-tag:hover{
+    background-color:#3E6D8E;
+    border-bottom:1px solid #37607D;
+    border-right:1px solid #37607D;
+    color:#E0EAF1;
+    text-decoration:none;
+}
+
+
+#side-menu{
+	background: rgba(255,255,255,0.7);
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+}
+
+#side-menu .widget{
+	padding:10px;
+}
+
+#side-menu .side-title{
+	font-weight:bold;
+}
+
+#side-menu .nav-cat{
+	padding: 3px;
+}
+
+#side-menu .nav-cat ul{
+	list-style:none;
+	margin-bottom:10px;
+}
+
+#side-menu .nav-cat li{
+	height:2em;
+	margin-left:0;
+}
+
+#side-menu a{
+	display:box;
+	text-decoration: none;
+	padding:5px;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+}
+
+#side-menu a:hover, #side-menu a:active, #side-menu a:focus{
+	background: rgba(255,255,255,0.5);
+	box-shadow: rgba(255,255,255,0.5) 1px 1px 3px;
+}
+
+form{
+	margin:0;
+	padding:0;
+	position:relative;
+	z-index:1;
+	line-height:1.5;
+}
+
+form fieldset{
+	border: medium none;
+	margin:0;
+	padding:0;
+}
+
+form .ctrlHolder{
+	border-bottom: 1px solid #EFEFEF;
+	padding:1em;
+}
+
+form .ctrlHolder, form .buttonHolder{
+	clear:both;
+	margin:0;
+	padding: 1em;
+}
+
+form label{
+	display:block;
+	float:none;
+	line-height:100%;
+	width:auto;
+	margin:0 0 0.5em;
+	color:#000;
+}
+
+form .textInput, form textarea{
+	background:none repeat scroll 0 0 #FFFFFF;
+	border: 1px solid #AAAAAA;
+	padding: 4px 2px;
+}
+
+form textarea{
+	height:12em;
+}
+
+form .textInput, form .fileUpload, form .selectInput, form select, form textarea{
+	margin:0;
+	width:90%;
+}
+
+form input.submit{
+	width:70px;
+	background-color: #2A378C;
+	display: inline-block;
+	color: #fff;
+	text-decoration: none;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+	position: relative;
+	font-size: 14px;
+	padding: 8px 14px 9px;
+	border:1px solid #dedede;
+	margin-top:15px;
+}
+form input.submit:hover{
+	cursor: pointer;
+	background-color: #20368B;
+}
+
+form input.submit:active{
+	background-color: #1E3480;
+	top:1px;
+}
+
+form ul.errorlist{
+	color:red;
+	list-style:none;
+	display:inline;
+	margin-left:0;
+}
+
+.footer, .footer a{
+	margin-top:10px;
+	color:blue;
+	text-shadow:none;
+}
+
+span.msg{
+	font-weight:bold;
+	font-size:12px;
+}
+
+
+/* Css Blockquote */
+blockquote p{
+  font: 1.2em/1.6em Georgia, "Times New Roman", Times, serif;
+  width: 400px;
+  background: url(/resources/img/small/close_quote.gif) no-repeat right bottom;
+  padding-left: 18px;
+  text-indent: -18px;
+  text-align:center;
+}
+
+blockquote p:first-letter {
+  background: url(/resources/img/small/open_quote.gif) no-repeat left top;
+  padding-left: 18px;
+  font: italic 1.4em Georgia, "Times New Roman", Times, serif;
+}
+
+div.content img.big{
+    width:80%;
+}
+div.content img.small{
+    width:40%;
+}
+

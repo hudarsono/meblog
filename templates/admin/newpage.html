@@ -1,0 +1,51 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+<form class="uniform" method="POST" action="{% if action %}{{ action }}{% else %}/page/new/{% endif %}">{% csrf_token %}
+{% if pageForm.key %}{{ pageForm.key }}{% endif %}
+<fieldset>
+<div class="left-form">
+			<div class="ctrlHolder">
+				<label for="id_name" style="display:block">Name {{ pageForm.name.errors }}</label>
+                {{ pageForm.name }}
+				<span class="inlineLabels"><p class="formHint">Max : 100 characters</p></span>
+			</div>
+			<div class="ctrlHolder">
+				<label for="id_description" style="display:block">Description {{ pageForm.description.errors }}</label>
+                {{ pageForm.description }}
+				<span class="inlineLabels"><p class="formHint">(Optional) Max : 300 characters</p></span>
+			</div>
+			<div class="ctrlHolder">
+				<label for="id_body" style="display:block">Body {{ pageForm.body.errors }}</label>
+                {{ pageForm.body }}
+				<span class="inlineLabels"><p class="formHint">Use markdown to style the text.
+					<a href="http://daringfireball.net/projects/markdown/basics">Please read documentation</a></p></span>
+			</div>
+			<div class="buttonHolder">
+				<input class="submit" type="submit" value="Save"/>
+				<input class="submit cancel" type="button" value="Cancel" onclick="history.go(-1)"/>
+			</div>
+</div>
+<div class="right-form">
+	<div class="ctrlHolder">
+		<label for="id_publish" style="display:block">Publish {{ pageForm.publish.errors }}</label>
+		{{ pageForm.publish }}
+	</div>
+	<div class="ctrlHolder">
+		<label for="id_navbar" style="display:block">Side Bar {{ pageForm.navbar.errors }}</label>
+		{{ pageForm.navbar }}
+	</div>
+    <div class="ctrlHolder">
+		<label for="id_widget" style="display:block">Widget{{ pageForm.navbar.errors }}</label>
+		{{ pageForm.widget }}
+        <span class="inlineLabels"><p class="formHint">Use Ctrl to select more than 1 widget</p></span>
+	</div>
+	<div class="ctrlHolder">
+		<label for="id_template" style="display:block">Template {{ pageForm.template.errors }}</label>
+        {{ pageForm.template }}
+		<span class="inlineLabels"><p class="formHint">Template Filename (*.html)</p></span>
+	</div>
+</div>
+</fieldset>
+</form>
+{% endblock %}
