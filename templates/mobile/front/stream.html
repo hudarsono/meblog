@@ -1,0 +1,37 @@
+{% extends 'mobile/front/base.html' %}
+
+{% block content %}
+    <div data-role="header">
+		<h1>Posts</h1>
+	</div>
+	<div data-role="content">
+		<ul id="posts" data-role="listview" data-theme="g">
+        {% if posts %}
+            {% for p in posts|slice:"0:5" %}
+                <li><a href="{{ p.get_absolute_url }}">
+                    <h3>{{ p.title }}</h3>
+                    <p>Updated : {{ p.last_update.year }}-{{ p.last_update.month }}-{{ p.last_update.day }} by {{ p.author.nickname }}</p>
+                    </a>
+                </li>
+            {% endfor %}
+            {% if posts|length > 5 %}
+                {% for pn in posts|slice:"5:9" %}
+                    <li style="display: none"><a href="{{ pn.get_absolute_url }}">
+                        <h3>{{ pn.title }}</h3>
+                        <p>Updated : {{ pn.last_update.year }}-{{ pn.last_update.month }}-{{ pn.last_update.day }} by {{ pn.author.nickname }}</p>
+                        </a>
+                    </li>
+                {% endfor %}
+                <li id="divider" onclick="show_more()" data-role="list-divider">More Post</li>
+            {% endif %}
+        {% endif %}
+        </ul>
+
+        <fieldset id="paging" style="display:none" class="ui-grid-a">
+        <div class="ui-block-a">{% if paging.prev %}<a data-theme="b" href="/?page={{ paging.prev }}">Prev Posts</a> &nbsp;&nbsp;{% endif %}</div>
+        <div class="ui-block-b">{% if paging.next %}<a data-theme="b" href="/?page={{ paging.next }}">More Post</a>{% endif %}</div>
+        </fieldset>
+		
+	</div>
+	
+{% endblock %}

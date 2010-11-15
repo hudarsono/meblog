@@ -1,0 +1,33 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+	<h3>Widgets</h3>
+	
+    <a class="tablemenu" href="/widget/new/">New Widget</a>
+    <div class="clear"></div>
+	<table>
+		<thead>
+			<tr>
+				<th class="first menu">Action</th>
+				<th>Widget Title</th>
+				<th class="last">Enabled</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% if widgets %}
+			{% for w in widgets %}
+				<tr>
+					<td><a href="{{ w.get_delete_url }}"><img src="/resources/img/small/trash.png" border="0" title="Delete"></a> |
+						<a href="{{ w.get_edit_url }}"><img src="/resources/img/small/edit.png" border="0" title="Edit"></a></td>
+					<td>{{ w.title }}</td>
+					<td>{{ w.enabled }}</td>
+				</tr>
+			{% endfor %}
+		{% else %}
+			<tr>
+				<td colspan="3">No HTML widget found.</td>
+			</tr>
+		{% endif %}
+		</tbody>
+	</table>
+{% endblock %}
