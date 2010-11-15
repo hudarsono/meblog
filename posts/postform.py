@@ -15,8 +15,13 @@
 #    You should have received a copy of the GNU General Public License
 #    along with MeBlog.  If not, see <http://www.gnu.org/licenses/>.
 
+
 import models
 from django import forms
+
+# this utils used to construct keyname from post or page title by removing unallowed char
+from utilities.utils import construct_keyname
+
 
 
 class PostForm(forms.Form):
@@ -28,9 +33,9 @@ class PostForm(forms.Form):
 
     def save(self, post=None, commit=True):
         data = self.cleaned_data
-        if not post: post = models.Post(key_name=data['title'].replace(' ','-'))
+        if not post: post = models.Post(key_name=construct_keyname(data['title']))
         post.title = data['title']
-        post.body = data['body']
+        post.body = self.data['body']
         post.category = data['category']
         post.tags = data['tags'].split()
         if commit: post.put()

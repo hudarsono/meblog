@@ -17,7 +17,6 @@
 
 
 import urllib
-import logging
 
 from appengine_django.models import BaseModel
 from google.appengine.ext import db
@@ -36,7 +35,6 @@ class Media(db.Model):
 
 
     def get_absolute_url(self):
-        #domain = Site.objects.get_current()
         return settings.SITE_URL+'/media/serve/%s' % self.key()
 
     def get_download_url(self):

@@ -15,8 +15,18 @@
 #    You should have received a copy of the GNU General Public License
 #    along with MeBlog.  If not, see <http://www.gnu.org/licenses/>.
 
-import models
+import os
+
+from django.conf import settings
 from django import forms
+
+import models
+from widgets.models import Widget
+
+from google.appengine.api import memcache
+
+# this utils used to construct keyname from post or page title by removing unallowed char
+from utilities.utils import construct_keyname
 
 
 class PageForm(forms.Form):
@@ -24,16 +34,37 @@ class PageForm(forms.Form):
     name = forms.CharField(max_length=100,widget=forms.TextInput(attrs={'class':'textInput'}))
     description = forms.CharField(max_length=300, required=False,widget=forms.TextInput(attrs={'class':'textInput'}))
     body = forms.CharField(widget=forms.Textarea)
-    template = forms.CharField(required=False,max_length=30,widget=forms.TextInput(attrs={'class':'textInput'}))
+    template = forms.ChoiceField()
+    widget = forms.ChoiceField(required=False, widget=forms.SelectMultiple())
     navbar = forms.BooleanField(required=False, widget=forms.Select(choices=(('True','True'),
                                                                              ('False', 'False'))))
     publish = forms.BooleanField(widget=forms.Select(choices=(('Published','Publish Now'),
                                                               ('Private','Private'),
                                                               ('Draft','Draft'))))
 
+    
+    def __init__(self, *args, **kwrds):
+        super(PageForm,self).__init__(*args, **kwrds)
+        
+        # read available templates
+        path = os.path.join(settings.ROOT_PATH,'templates','pages')
+        templates = os.listdir(path)
+        self.fields['template'].choices=[[x,x] for x in templates]
+        
+        # read available widget
+        if memcache.get('widgets_enabled'):
+            widgets = memcache.get('widgets_enabled')
+        else:
+            widgets = Widget.all().filter('enabled =',True)
+            memcache.set('widgets_enabled', widgets)
+        self.fields['widget'].choices = ()
+        for w in widgets:
+            self.fields['widget'].choices.append([str(w.key()), w.title])
+        
+    
     def save(self, page=None, commit=True):
         data = self.cleaned_data
-        if not page: page = models.Page(key_name=data['name'].replace(' ','-'))
+        if not page: page = models.Page(key_name=construct_keyname(data['name']))
         page.name = data['name']
         page.description = data['description']
         page.body = data['body']
@@ -41,6 +72,7 @@ class PageForm(forms.Form):
         page.publish = data['publish']
         if commit: page.put()
         return page
+        
      
     
     # prevent the same page 's name

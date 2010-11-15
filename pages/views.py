@@ -15,11 +15,16 @@
 #    You should have received a copy of the GNU General Public License
 #    along with MeBlog.  If not, see <http://www.gnu.org/licenses/>.
 
+# Python module
+import os
+
 # Django module
 from django.shortcuts import render_to_response
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.template import RequestContext
 from django.conf import settings
+from django.core.context_processors import csrf
+
 
 # App module
 from pages import models
@@ -31,6 +36,10 @@ from utilities.auth_helper import login_required
 from google.appengine.api import memcache
 from google.appengine.api import mail
 
+from django.template.loader import render_to_string
+import django_mobile 
+from gaesessions import get_current_session
+
 PAGESIZE = settings.PAGESIZE
 
 def render(request, name):
@@ -40,8 +49,21 @@ def render(request, name):
             template = page.template
         else:
             template = 'default.html'
-        return render_to_response('pages/'+template, {'page':page},
+            
+        session = get_current_session()
+        if session.is_active():
+            if request.GET.get('mobile'):
+                session['mobile'] = request.GET.get('mobile');
+
+            if session.has_key('mobile'):
+                if session['mobile'] == 'off':
+                    django_mobile.set_flavour('full');
+        else:
+            session.start()
+        rendered = render_to_string('pages/'+template, {'page':page},
                                                 context_instance=RequestContext(request))
+                                                
+        return HttpResponse(rendered);
     else:
         raise Http404
 
@@ -77,6 +99,8 @@ def listPages(request):
 
 @login_required
 def newPage(request):
+    c = {}
+    c.update(csrf(request))
     pageForm = None
     if request.method == 'POST':
         newPage = PageForm(request.POST)
@@ -89,17 +113,20 @@ def newPage(request):
 
     if pageForm is None:
         pageForm = PageForm()
+        
 
-    return render_to_response('admin/newpage.html', {
-                                                     'pageForm':pageForm})
+    return render_to_response('admin/newpage.html', {'pageForm':pageForm},
+                                                    context_instance=RequestContext(request))
 
 
 @login_required
 def editPage(request, key):
+    c = {}
+    c.update(csrf(request))
     pageForm = None
     if request.method == 'POST':
         form = PageForm(request.POST)
-        page = page = models.Page.get(key)
+        page = models.Page.get(key)
         if form.is_valid():
             form.save(page)
             memcache.flush_all()
@@ -117,7 +144,8 @@ def editPage(request, key):
                                          'template':page.template,
                                          'publish':page.publish})
     return render_to_response('admin/newpage.html', {'pageForm':pageForm,
-                                                     'action':page.get_edit_url()})
+                                                     'action':page.get_edit_url()},
+                                                     context_instance=RequestContext(request))
 
 @login_required
 def delPage(request, key):
@@ -129,6 +157,8 @@ def delPage(request, key):
 
 
 def contact(request):
+    c = {}
+    c.update(csrf(request))
     form = None
     msg = None
     if request.method == 'POST':
@@ -147,6 +177,18 @@ def contact(request):
             form = ContactForm(request.POST)
 
     if form is None: form = ContactForm()
+    
+    session = get_current_session()
+    if session.is_active():
+        if request.GET.get('mobile'):
+            session['mobile'] = request.GET.get('mobile');
 
-    return render_to_response('pages/contact.html', {'form':form, 'msg':msg},
+        if session.has_key('mobile'):
+            if session['mobile'] == 'off':
+                django_mobile.set_flavour('full');
+    else:
+        session.start()
+
+    rendered =  render_to_string('pages/contact.html', {'form':form, 'msg':msg},
                                                    context_instance=RequestContext(request))
+    return HttpResponse(rendered)

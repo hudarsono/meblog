@@ -17,15 +17,19 @@
 
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.http import HttpResponseRedirect, Http404
-
+from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.conf import settings
+from django.core.context_processors import csrf
 
 from google.appengine.api import memcache
 
 from posts import models
-import postform
+from posts import postform
 from utilities.auth_helper import login_required
+
+from django.template.loader import render_to_string
+import django_mobile 
+from gaesessions import get_current_session
 
 PAGESIZE = settings.PAGESIZE
 
@@ -77,9 +81,9 @@ def get_tag_cat_list():
   if cat_list:
       for cat in sorted(cat_list):
         sorted_cat_list.append({'category': cat,
-                      'count':cat_list[cat],
-                      'url': '/posts/category/%s' % cat.replace(' ','-'),
-                      })
+                                  'count':cat_list[cat],
+                                  'url': '/posts/category/%s' % cat.replace(' ','-'),
+                                  })
 
 
   # get all tags
@@ -138,12 +142,30 @@ def stream(request):
   paging = {'prev': page - 1, 'next':p_next}
   # get tag and categories
   cat_tag = get_tag_cat_list()
+  
+  if request.GET.get('mobile'):
+    if request.GET.get('mobile') == 'full':
+        django_mobile.set_flavour('full');
+  
 
-  return render_to_response('front/stream.html', {'posts': posts,
-                            'paging':paging,
-                            'categories': cat_tag['cat_list'],
-                            'tags': cat_tag['tag_list']},
-                                           context_instance=RequestContext(request))
+  session = get_current_session()
+  if session.is_active():
+    if request.GET.get('mobile'):
+        session['mobile'] = request.GET.get('mobile');
+  
+    if session.has_key('mobile'):
+        if session['mobile'] == 'off':
+            django_mobile.set_flavour('full');
+  else:
+    session.start()
+
+  rendered  = render_to_string('front/stream.html', {'posts': posts,
+                                'paging':paging,
+                                'categories': cat_tag['cat_list'],
+                                'tags': cat_tag['tag_list']},
+                                context_instance=RequestContext(request))
+                                
+  return HttpResponse(rendered)
 
 
 
@@ -236,17 +258,30 @@ def showPost(request, year, month, day, key_name):
   if post:
     # get tag and categories
     cat_tag = get_tag_cat_list()
+    
+    session = get_current_session()
+    if session.is_active():
+      if request.GET.get('mobile'):
+          session['mobile'] = request.GET.get('mobile');
+  
+      if session.has_key('mobile'):
+          if session['mobile'] == 'off':
+              django_mobile.set_flavour('full');
+    else:
+      session.start()
 
     return render_to_response('front/post.html', {'post': post,
                             'categories': cat_tag['cat_list'],
                             'tags': cat_tag['tag_list']},
-                                           context_instance=RequestContext(request))
+                             context_instance=RequestContext(request))
   else:
     raise Http404
 
 
 @login_required
 def newPost(request):
+  c = {}
+  c.update(csrf(request))
   postForm = None
   if request.method == 'POST':
     newPost = postform.PostForm(request.POST)
@@ -262,13 +297,16 @@ def newPost(request):
 
   if postForm is None:
     postForm = postform.PostForm()
+
   return render_to_response('admin/newpost.html', {
-                          'postForm':postForm})
+                          'postForm':postForm},context_instance=RequestContext(request))
 
 
 
 @login_required
 def editPost(request, year, month, day, key):
+  c = {}
+  c.update(csrf(request))
   if request.method == 'POST':
     post = models.Post.get(key)
     if post:
@@ -288,7 +326,7 @@ def editPost(request, year, month, day, key):
 
     return render_to_response('admin/newpost.html', {
                              'postForm':editPostForm,
-                             'action':post.get_edit_url(),})
+                             'action':post.get_edit_url()},context_instance=RequestContext(request))
 
 
 

@@ -31,11 +31,13 @@ class Page(db.Model):
     template = db.StringProperty()
     navbar = db.BooleanProperty()
     publish = db.BooleanProperty()
+    widgets = db.StringListProperty()
     created = db.DateTimeProperty(auto_now_add=True)
+    last_update = db.DateTimeProperty(auto_now=True)
     author = db.UserProperty(auto_current_user_add=True)
 
     def get_absolute_url(self):
-        return "/%s" % self.name
+        return "/%s" % self.key().name()
 
     def get_delete_url(self):
         return "/page/delete/%s" % (self.key())

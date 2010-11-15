@@ -40,19 +40,34 @@ def pages(request):
             
     if settings.BLOG_TITLE != '':
         blog_title = settings.BLOG_TITLE
-
-    if settings.DISQUSS == 'True':
-        discuss=True
-    else:
-        discuss=False
-
-    if settings.ANALYTICS == 'True':
-        ga=True
-    else:
-        ga=False
-
-    return {'context_pages':context_pages, 'blog_title':blog_title, 'discuss':discuss, 'ga':ga}
+            
+    return {'context_pages':context_pages, 'blog_title':blog_title}
     
+    
+def addon(request):
+    # dont turn on all of this when on development
+    if settings.DEBUG == False:
+        if settings.DISQUS == True:
+            disqus=True
+        else:
+            disqus=False
+
+        if settings.ANALYTICS == True:
+            ga=True
+        else:
+            ga=False
+    
+        if settings.FBLIKE == True:
+            fblike=True
+        else:
+            fblike=False
+    else:
+        disqus = ga = fblike = False
+        
+    return {'disqus':disqus, 'ga':ga, 'fblike':fblike}
+    
+    
+
 def daily_quote(request):
     if memcache.get('today_quote'):
         todayquote = memcache.get('today_quote')

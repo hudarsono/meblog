@@ -1,5 +1,5 @@
 body{
-	background-color:#2A378C;
+	background-image:url('/resources/img/small/bg.png');
 	text-shadow: 0px 1px 1px #fff;
 }
 
@@ -27,7 +27,7 @@ body{
 	-moz-border-radius:6px;
 	-webkit-border-radius:6px;
 	border-radius:6px;
-	color:white;
+	color:blue;
 	text-shadow:none;
 }
 
@@ -92,7 +92,7 @@ a.tablemenu{
 }
 
 table{
-	width: 90%;
+	width: 100%;
 	border-collapse:collapse;
 	margin-left;
 }
@@ -112,6 +112,8 @@ td.left{
 
 table .menu{width:100px;}
 table .date{width:150px;}
+table .medium{width:200px;}
+table .big{width:300px;}
 
 tr.odd td {
 	background:#f7fbff;
@@ -204,6 +206,6 @@ form ul.errorlist{
 
 .footer, .footer a{
 	margin-top:10px;
-	color:white;
+	color:blue;
 	text-shadow:none;
 }

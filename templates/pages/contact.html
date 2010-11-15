@@ -2,7 +2,7 @@
 
 {% block main_content %}
 <div style="width:400px">
-	<form action="/contact/" method="POST">
+	<form action="/contact/" method="POST">{% csrf_token %}
 		<fieldset>
 			<div class="ctrlHolder">
 				<label for="id_name" style="display:block">Name {{ form.name.errors }}</label>

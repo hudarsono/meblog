@@ -19,7 +19,8 @@ from appengine_django.models import BaseModel
 from google.appengine.ext import db
 from google.appengine.api import users
 
-# Create your models here.
+from django.utils import text
+
 import datetime
 import markdown
 import re
@@ -31,13 +32,14 @@ class Post(db.Model):
     category = db.CategoryProperty()
     tags = db.StringListProperty()
     pub_date = db.DateTimeProperty(auto_now_add=True)
+    last_update = db.DateTimeProperty(auto_now=True)
     author = db.UserProperty(auto_current_user_add=True)
 
     def get_absolute_url(self):
         return "/post/%04d/%02d/%02d/%s" % (self.pub_date.year,
                                             self.pub_date.month,
                                             self.pub_date.day,
-                                            self.title.replace(' ','-'))
+                                            self.key().name())
 
     def get_edit_url(self):
         return "/post/edit/%04d/%02d/%02d/%s" % (self.pub_date.year,
@@ -56,7 +58,7 @@ class Post(db.Model):
         p = re.compile(r'<img.*?>')
         body = p.sub('', self.body_html)
         if len(body) > 500:
-            return body[:500].rsplit(' ', 1)[0]+'...'+'<a href="'+self.get_absolute_url()+'">Read More</a>'
+            return text.truncate_html_words(body, 70)+'<a href="'+self.get_absolute_url()+'">Read More</a>'
         else:
             return body
 

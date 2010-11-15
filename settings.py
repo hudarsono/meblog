@@ -16,7 +16,11 @@
 
 import os
 
-DEBUG = False
+if os.environ['SERVER_NAME'] == 'localhost':
+    DEBUG = True
+else:
+    DEBUG = False
+    
 TEMPLATE_DEBUG = DEBUG
 
 ROOT_PATH = os.path.dirname(__file__)
@@ -75,6 +79,7 @@ EMAIL_HOST = ''
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
+    'django_mobile.loader.Loader',
     'django.template.loaders.filesystem.load_template_source',
     'django.template.loaders.app_directories.load_template_source',
 #     'django.template.loaders.eggs.load_template_source',
@@ -84,23 +89,30 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'google.appengine.ext.appstats.recording.AppStatsDjangoMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django_mobile.middleware.MobileDetectionMiddleware',
+    'django_mobile.middleware.SetFlavourMiddleware',
+    'gaesessions.DjangoSessionMiddleware',
 #    'django.contrib.auth.middleware.AuthenticationMiddleware',
 #    'django.middleware.doc.XViewMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-#   'django.core.context_processors.auth',
     'django.core.context_processors.debug',
     'django.core.context_processors.i18n',
 
     # context processor to get all pages
     'context.context_processors.pages',
     
+    # get addon settings
+    'context.context_processors.addon',
+    
     # get daily quote 
     'context.context_processors.daily_quote',
+    
+    # get mobile context
+    'django_mobile.context_processors.flavour',
 
-#    'django.core.context_processors.media',  # 0.97 only.
-#    'django.core.context_processors.request',
 )
 
 ROOT_URLCONF = 'urls'
@@ -111,12 +123,17 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
+     # External Packages
      'appengine_django',
+     'django_mobile',
+     'markdown',
+     'pygments',
+     'gaesessions',
+     
+     # Meblog Packages
 	 'posts',
      'pages',
      'context',
-     'markdown',
-     'pygments',
      'utilities',
 )
 
@@ -129,7 +146,7 @@ AUTHOR_EMAIL = 'your-email'                         # Put Your Email
 PAGESIZE = 10                                       # This is how many posts will show on home page
 
 # Extension
-DISQUSS = 'False'      #Disquss is a comment system for blog.  http://disqus.com
+DISQUSS = 'True'      #Disquss is a comment system for blog.  http://disqus.com
 ANALYTICS = 'False'    #Google analytics integration
-FBLIKE = 'False'       #Facebook Like Button. Set this to True will enable fblike automatically on every post. No additional action required.
+FBLIKE = 'True'       #Facebook Like Button. Set this to True will enable fblike automatically on every post. No additional action required.
 

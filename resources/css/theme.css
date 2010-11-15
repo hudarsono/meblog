@@ -1,12 +1,15 @@
 body{
-	background-color:#2A378C;
+    background-image:url('/resources/img/small/bg.png');
 	text-shadow: 0px 1px 1px #fff;
 }
 
 header hgroup, hgroup a{
-    color:white;
     text-shadow:none;
     text-decoration:none;
+}
+
+header hgroup a{
+    color:blue;
 }
 
 #nav {
@@ -33,7 +36,7 @@ header hgroup, hgroup a{
 	-moz-border-radius:6px;
 	-webkit-border-radius:6px;
 	border-radius:6px;
-	color:white;
+	color:blue;
 	text-shadow: none;
 }
 
@@ -60,9 +63,6 @@ header hgroup, hgroup a{
 	text-decoration:none;
 }
 
-#main-content .date{
-}
-
 #main-content p{
 	margin-top:15px;
 }
@@ -71,9 +71,38 @@ header hgroup, hgroup a{
 	font-weight:bold;
 }
 
+#main-content .tags{
+    float:right;
+    margin: 0 20px;
+    font-weight:bold;
+}
+
 a.comment-link{
     float:right;
     margin:0 20px;
+}
+
+a.post-tag{
+    background-color:#E0EAF1;
+    border-bottom:1px solid #3E6D8E;
+    border-right:1px solid #7F9FB6;
+    color:#3E6D8E;
+    font-size:90%;
+    line-height:2.4;
+    margin:2px 2px 2px 0;
+    padding:3px 4px;
+    text-decoration:none;
+    white-space:nowrap;
+    cursor:pointer;
+    text-shadow:none;
+}
+
+a.post-tag:hover{
+    background-color:#3E6D8E;
+    border-bottom:1px solid #37607D;
+    border-right:1px solid #37607D;
+    color:#E0EAF1;
+    text-decoration:none;
 }
 
 
@@ -206,7 +235,7 @@ form ul.errorlist{
 
 .footer, .footer a{
 	margin-top:10px;
-	color:white;
+	color:blue;
 	text-shadow:none;
 }
 
@@ -232,7 +261,10 @@ blockquote p:first-letter {
   font: italic 1.4em Georgia, "Times New Roman", Times, serif;
 }
 
-div.content img{
-    width:600px;
+div.content img.big{
+    width:80%;
+}
+div.content img.small{
+    width:40%;
 }
 

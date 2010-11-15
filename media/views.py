@@ -17,11 +17,11 @@
 
 
 import urllib
-import logging
 
 from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.shortcuts import render_to_response
 from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
 
 from google.appengine.ext import blobstore
 from google.appengine.api import memcache
@@ -67,16 +67,12 @@ def listMedia(request):
 @login_required
 def delMedia(request, key):
     blob_key = str(urllib.unquote(key))
-    logging.info(key)
-    logging.info(blobstore.BlobKey(key))
-    logging.info(blobstore.BlobKey(blob_key))
-
-
     blobstore.delete(blob_key)
     memcache.delete('mediapage-1')
     return HttpResponseRedirect('/media/')
 
 
+@csrf_exempt
 @login_required
 def upload(request):
     form = None

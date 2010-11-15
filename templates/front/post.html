@@ -2,20 +2,38 @@
 
 {% block main_content %}
 	<h3 class="title">{{ post.title}}</h3>
-	<span class="date">Writen at {{ post.pub_date.year }}-{{ post.pub_date.month }}-{{ post.pub_date.day }}</span>
+	<span class="date">last updated at {{ post.last_update.year }}-{{ post.last_update.month }}-{{ post.last_update.day }}</span>
+    <span class="tags">tags: &nbsp;
+        {% for t in post.tags %}
+            <a class="post-tag" href="/posts/tag/{{ t }}">{{ t }}</a>
+        {% endfor %}
+    </span>
 	<p>
 		{% autoescape off %}
 		{{ post.body_html|safe }}
 		{% endautoescape %}
 	</p>
-	<div class="clear"  style="height:50"></div>
+    <div class="clear"  style="height:50"></div>
     {% if fblike %}
     <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="{{ post.get_absolute_url }}"></fb:like>
     {% endif %}
     
-	{% if discuss %}
-	<!-- Put Disquss Script Here. -->
+	{% if disqus %}
+	<div id="disqus_thread"></div>
+    <script type="text/javascript">
+      /**
+        * var disqus_identifier; [Optional but recommended: Define a unique identifier (e.g. post id or slug) for this thread] 
+        */
+      (function() {
+       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+       dsq.src = 'http://hudarsonosblog.disqus.com/embed.js';
+       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=hudarsonosblog">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 	{% endif %}
+    
 {% endblock %}
 
 
