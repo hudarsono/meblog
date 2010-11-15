@@ -67,6 +67,7 @@ def addon(request):
     return {'disqus':disqus, 'ga':ga, 'fblike':fblike}
     
     
+    return {'context_pages':context_pages, 'blog_title':blog_title, 'disqus':disqus, 'ga':ga, 'fblike':fblike}
 
 def daily_quote(request):
     if memcache.get('today_quote'):
