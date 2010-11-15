@@ -1,0 +1,14 @@
+{% extends 'mobile/front/base.html' %}
+
+{% block content %}
+	<div data-role="header">
+		<h1>{{ page.name }}</h1>
+	</div>
+	
+	<div data-role="content">
+			{% autoescape off %}
+			{{ page.body_html }}
+			{% endautoescape %}
+						
+	</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <title>MeBlog</title> 
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.css" />
+    <link rel="stylesheet" type="text/css" href="/resources/css/mobile.css" />
+	<script src="http://code.jquery.com/jquery-1.4.3.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.js"></script>
+    
+    <script src="/resources/js/mobile.js"></script>
+</head>
+<body>
+	<div data-role="page">
+	  {% block content %}{% endblock %}	
+	<div data-role="footer">
+		<div data-role="navbar" data-position="fixed">
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/contact/">Contact Me</a></li>
+				<li><a rel="external" href="/?mobile=off">Full Site</a></li>
+			</ul>
+		</div><!-- /navbar -->
+	</div><!-- /footer -->		
+	</div>
+
+</body>
+</html>

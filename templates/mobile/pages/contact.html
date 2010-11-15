@@ -1,0 +1,28 @@
+{% extends 'mobile/front/base.html' %}
+
+{% block content %}
+	<div data-role="header">
+		<h1>Contact</h1>
+	</div>
+	
+	<div data-role="content">
+        {% if msg %}<p><strong>{{ msg }}</strong></p>{% endif %}
+		<form action="/contact/" method="post">{% csrf_token %}
+			<div data-role="fieldcontain">
+				<label for="id_name">Name:</label>
+				<input type="text" name="name" id="id_name" value=""  />
+			</div>
+			<div data-role="fieldcontain">
+				<label for="id_email">Email:</label>
+				<input type="text" name="email" id="id_email" value=""  />
+			</div>
+			<div data-role="fieldcontain">
+				<label for="id_message">Message:</label>
+				<textarea cols="40" rows="8" name="textarea" id="id_message"></textarea>
+			</div>
+			<div data-role="fieldcontain">
+				<input type="submit" value="Send"/>
+			</div>			
+		</form>
+	</div>
+{% endblock %}

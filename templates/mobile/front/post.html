@@ -1,0 +1,23 @@
+{% extends 'mobile/front/base.html' %}
+
+{% block content %}
+<div data-role="page">
+    <div data-role="header">
+		<h1>Post</h1>
+	</div><!-- /header -->
+    
+    <div data-role="content">	
+        <h4>{{ post.title }}</h4>
+        <p>Updated : {{ post.last_update.year }}-{{ post.last_update.month }}-{{ post.last_update.day }} by {{ post.author.nickname }}</p>
+        <p>
+            {% autoescape off %}
+            {{ post.body_html|safe }}
+            {% endautoescape %}
+        </p>
+        
+        {% if disqus %}
+        <!-- disquss script -->
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

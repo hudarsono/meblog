@@ -1,0 +1,32 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+<form class="uniform" method="post" action="{% if action %}{{ action }}{% else %}/widget/new/{% endif %}">
+{% csrf_token %}
+<fieldset>
+	<div class="left-form">
+				<div class="ctrlHolder">
+					<label for="id_title" style="display:block">Widget Title {{ widgetForm.title.errors }}</label>
+	                {{ widgetForm.title }}
+					<span class="inlineLabels"><p class="formHint">Max : 30 characters</p></span>
+				</div>
+				<div class="ctrlHolder">
+					<label for="id_body" style="display:block">Widget Body (Put HTML code here){{ widgetForm.body.errors }}</label>
+	                {{ widgetForm.body }}
+					<span class="inlineLabels"><p class="formHint">HTML syntax is allowed.</p></span>
+				</div>
+				<div class="buttonHolder">
+					<input class="submit" type="submit" value="Save"/>
+					<input class="submit cancel" type="button" value="Cancel" onclick="history.go(-1)"/>
+				</div>
+	</div>
+	<div class="right-form">
+		<div class="ctrlHolder">
+			<label for="id_enabled" style="display:block">Enabled {{ widgetForm.enabled.errors }}</label>
+			{{ widgetForm.enabled }}
+		</div>
+	</div>
+	
+</fiedset>
+</form>
+{% endblock %}
